@@ -1,3 +1,3 @@
-# Engineering Lab Template
+# Authgate Production Service
 
-#### Template repository for engineering laboratories. Provides a structured workflow for managing tasks, experiments, research, implementations, roadmaps, and qualification progress across technical domains.
+#### A production-grade authentication and authorization service covering sessions, refresh tokens, API keys, RBAC, ABAC, OAuth2 basics, password reset, email verification, audit logging, rate limiting, security checks, and backend access control patterns.
