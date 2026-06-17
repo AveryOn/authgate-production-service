@@ -1,2133 +1,2133 @@
 # Authgate Production Service Roadmap
 
-## 1. Основы authentication и authorization
+## 1. Authentication and authorization fundamentals
 
-### 001. Разделить authentication и authorization
+### 001. Separate authentication and authorization
 
-Зафиксировать различия между установлением identity пользователя и проверкой его права выполнить конкретное действие.
+Record the differences between establishing a user's identity and checking their right to perform a specific action.
 
-### 002. Исследовать identity lifecycle
+### 002. Research the identity lifecycle
 
-Разобрать регистрацию, верификацию, активацию, suspension, recovery, deactivation и удаление identity.
+Examine identity registration, verification, activation, suspension, recovery, deactivation, and deletion.
 
-### 003. Исследовать credential lifecycle
+### 003. Research the credential lifecycle
 
-Разобрать создание, ротацию, компрометацию, отзыв и истечение credentials.
+Examine credential creation, rotation, compromise, revocation, and expiration.
 
-### 004. Исследовать session-based authentication
+### 004. Research session-based authentication
 
-Определить модель server-side sessions, session identifiers, cookies и session storage.
+Define the model of server-side sessions, session identifiers, cookies, and session storage.
 
-### 005. Исследовать token-based authentication
+### 005. Research token-based authentication
 
-Разобрать access tokens, refresh tokens, bearer semantics и ограничения stateless authentication.
+Examine access tokens, refresh tokens, bearer semantics, and the limitations of stateless authentication.
 
-### 006. Сравнить opaque и self-contained tokens
+### 006. Compare opaque and self-contained tokens
 
-Зафиксировать различия introspection, revocation, latency, payload exposure и key management.
+Record the differences in introspection, revocation, latency, payload exposure, and key management.
 
-### 007. Исследовать authentication assurance levels
+### 007. Research authentication assurance levels
 
-Определить уровни доверия для password, MFA, WebAuthn и step-up authentication.
+Define trust levels for password, MFA, WebAuthn, and step-up authentication.
 
-### 008. Исследовать RBAC
+### 008. Research RBAC
 
-Разобрать users, roles, permissions, assignments и role hierarchy.
+Examine users, roles, permissions, assignments, and role hierarchy.
 
-### 009. Исследовать ABAC
+### 009. Research ABAC
 
-Разобрать subject, resource, action, environment attributes и policy evaluation.
+Examine subject, resource, action, environment attributes, and policy evaluation.
 
-### 010. Исследовать ACL
+### 010. Research ACL
 
-Определить случаи использования resource-level access control lists.
+Define use cases for resource-level access control lists.
 
-### 011. Исследовать ReBAC
+### 011. Research ReBAC
 
-Разобрать доступ на основании отношений user, team, organization и resource.
+Examine access based on relationships between user, team, organization, and resource.
 
-### 012. Исследовать policy-based authorization
+### 012. Research policy-based authorization
 
-Определить структуру policies, decisions, obligations и deny reasons.
+Define the structure of policies, decisions, obligations, and deny reasons.
 
-### 013. Исследовать OAuth 2.0
+### 013. Research OAuth 2.0
 
-Разобрать resource owner, client, authorization server, resource server и authorization grants.
+Examine resource owner, client, authorization server, resource server, and authorization grants.
 
-### 014. Исследовать OpenID Connect
+### 014. Research OpenID Connect
 
-Определить назначение ID Token, UserInfo и identity claims поверх OAuth 2.0.
+Define the purpose of ID Token, UserInfo, and identity claims on top of OAuth 2.0.
 
-### 015. Исследовать Zero Trust
+### 015. Research Zero Trust
 
-Зафиксировать принцип постоянной проверки identity, device, context и requested action.
+Record the principle of continuous verification of identity, device, context, and requested action.
 
-### 016. Исследовать defense in depth
+### 016. Research defense in depth
 
-Определить уровни защиты на transport, application, data и operational layers.
+Define protection layers at the transport, application, data, and operational layers.
 
-### 017. Исследовать least privilege
+### 017. Research least privilege
 
-Запретить выдачу credentials и permissions шире необходимого scope.
+Prohibit granting credentials and permissions broader than the required scope.
 
-### 018. Исследовать confused deputy problem
+### 018. Research the confused deputy problem
 
-Разобрать ситуации, когда доверенный backend выполняет действие от имени недостаточно авторизованного caller.
+Examine situations in which a trusted backend performs an action on behalf of an insufficiently authorized caller.
 
-### 019. Определить trust boundaries
+### 019. Define trust boundaries
 
-Зафиксировать границы между browser, API, auth service, resource services, database и external identity providers.
+Record the boundaries between browser, API, auth service, resource services, database, and external identity providers.
 
-### 020. Зафиксировать security invariants
+### 020. Record security invariants
 
-Документировать обязательные правила credential storage, session validation, authorization и audit.
+Document mandatory rules for credential storage, session validation, authorization, and audit.
 
-## 2. Структура репозитория и инфраструктура
+## 2. Repository structure and infrastructure
 
-### 021. Создать monorepo
+### 021. Create a monorepo
 
-Настроить workspace для Auth API, background workers, administration CLI и shared libraries.
+Configure a workspace for Auth API, background workers, administration CLI, and shared libraries.
 
-### 022. Создать NestJS Auth API
+### 022. Create NestJS Auth API
 
-Реализовать основное HTTP-приложение для authentication, sessions, API keys и authorization.
+Implement the main HTTP application for authentication, sessions, API keys, and authorization.
 
-### 023. Создать background worker
+### 023. Create a background worker
 
-Выделить отдельный процесс для email, cleanup, audit export и security notifications.
+Separate a process for email, cleanup, audit export, and security notifications.
 
-### 024. Создать administration CLI
+### 024. Create an administration CLI
 
-Добавить команды управления users, sessions, keys, roles и security incidents.
+Add commands for managing users, sessions, keys, roles, and security incidents.
 
-### 025. Определить shared libraries
+### 025. Define shared libraries
 
-Выделить domain, application, contracts, database, crypto, observability и testing packages.
+Separate domain, application, contracts, database, crypto, observability, and testing packages.
 
-### 026. Настроить TypeScript strict mode
+### 026. Configure TypeScript strict mode
 
-Включить строгую проверку типов, nullability и unsafe operations.
+Enable strict type checking, nullability, and unsafe operations checks.
 
-### 027. Настроить project references
+### 027. Configure project references
 
-Разделить сборку приложений и библиотек с контролируемыми dependencies.
+Separate the build of applications and libraries with controlled dependencies.
 
-### 028. Настроить path aliases
+### 028. Configure path aliases
 
-Создать стабильные aliases для domain, application, adapters и shared packages.
+Create stable aliases for domain, application, adapters, and shared packages.
 
-### 029. Настроить ESLint
+### 029. Configure ESLint
 
-Добавить правила для Promise handling, security-sensitive code и запрещённых imports.
+Add rules for Promise handling, security-sensitive code, and prohibited imports.
 
-### 030. Настроить Prettier
+### 030. Configure Prettier
 
-Обеспечить единый формат TypeScript, JSON, YAML и Markdown.
+Ensure a consistent format for TypeScript, JSON, YAML, and Markdown.
 
-### 031. Настроить environment validation
+### 031. Configure environment validation
 
-Проверять PostgreSQL, Redis, RabbitMQ, signing keys, cookie settings и email provider configuration.
+Validate PostgreSQL, Redis, RabbitMQ, signing keys, cookie settings, and email provider configuration.
 
-### 032. Создать Docker Compose окружение
+### 032. Create a Docker Compose environment
 
-Добавить PostgreSQL, Redis, RabbitMQ, Mailpit и observability stack.
+Add PostgreSQL, Redis, RabbitMQ, Mailpit, and an observability stack.
 
-### 033. Настроить PostgreSQL migrations
+### 033. Configure PostgreSQL migrations
 
-Создать воспроизводимый migration workflow для development, test и production.
+Create a reproducible migration workflow for development, test, and production.
 
-### 034. Создать development seeds
+### 034. Create development seeds
 
-Подготовить users, roles, permissions, sessions, clients и API keys.
+Prepare users, roles, permissions, sessions, clients, and API keys.
 
-### 035. Настроить application bootstrap
+### 035. Configure application bootstrap
 
-Подключить validation, error handling, security headers, logging и tracing.
+Connect validation, error handling, security headers, logging, and tracing.
 
-### 036. Реализовать liveness endpoint
+### 036. Implement a liveness endpoint
 
-Проверять работоспособность процесса без обращения к внешним dependencies.
+Check process operability without accessing external dependencies.
 
-### 037. Реализовать readiness endpoint
+### 037. Implement a readiness endpoint
 
-Проверять PostgreSQL, Redis, broker и обязательные cryptographic materials.
+Check PostgreSQL, Redis, broker, and required cryptographic materials.
 
-### 038. Реализовать graceful shutdown
+### 038. Implement graceful shutdown
 
-Корректно завершать HTTP-запросы, workers, consumers и database connections.
+Correctly terminate HTTP requests, workers, consumers, and database connections.
 
-### 039. Настроить configuration profiles
+### 039. Configure configuration profiles
 
-Разделить development, test, staging и production settings.
+Separate development, test, staging, and production settings.
 
-### 040. Создать local quick-start script
+### 040. Create a local quick-start script
 
-Автоматизировать запуск infrastructure, migrations, seeds и applications.
+Automate infrastructure startup, migrations, seeds, and applications.
 
-## 3. Архитектура и domain boundaries
+## 3. Architecture and domain boundaries
 
-### 041. Определить Authgate modules
+### 041. Define Authgate modules
 
-Выделить Identity, Credentials, Sessions, Tokens, API Keys, Authorization, OAuth и Audit.
+Separate Identity, Credentials, Sessions, Tokens, API Keys, Authorization, OAuth, and Audit.
 
-### 042. Определить bounded contexts
+### 042. Define bounded contexts
 
-Зафиксировать ответственность и ownership данных каждого module.
+Record the responsibility and data ownership of each module.
 
-### 043. Спроектировать Hexagonal Architecture
+### 043. Design Hexagonal Architecture
 
-Разделить domain, application, ports, adapters, delivery и infrastructure layers.
+Separate domain, application, ports, adapters, delivery, and infrastructure layers.
 
-### 044. Определить aggregate boundaries
+### 044. Define aggregate boundaries
 
-Выделить User, Credential, Session, APIKey, OAuthClient, Role и Policy aggregates.
+Separate User, Credential, Session, APIKey, OAuthClient, Role, and Policy aggregates.
 
-### 045. Создать domain layer
+### 045. Create the domain layer
 
-Разместить entities, value objects, domain services, policies и events без framework dependencies.
+Place entities, value objects, domain services, policies, and events without framework dependencies.
 
-### 046. Создать application layer
+### 046. Create the application layer
 
-Разместить use cases, commands, queries, ports и transaction orchestration.
+Place use cases, commands, queries, ports, and transaction orchestration.
 
-### 047. Создать infrastructure layer
+### 047. Create the infrastructure layer
 
-Реализовать PostgreSQL, Redis, crypto, messaging и external identity adapters.
+Implement PostgreSQL, Redis, crypto, messaging, and external identity adapters.
 
-### 048. Создать delivery layer
+### 048. Create the delivery layer
 
-Реализовать HTTP controllers, CLI commands и broker consumers.
+Implement HTTP controllers, CLI commands, and broker consumers.
 
-### 049. Определить repository ports
+### 049. Define repository ports
 
-Изолировать application layer от ORM и database implementation.
+Isolate the application layer from ORM and database implementation.
 
-### 050. Определить TransactionPort
+### 050. Define TransactionPort
 
-Позволить use cases выполнять atomic operations без зависимости от ORM.
+Allow use cases to perform atomic operations without depending on ORM.
 
-### 051. Определить PasswordHasherPort
+### 051. Define PasswordHasherPort
 
-Изолировать password hashing algorithm от domain logic.
+Isolate the password hashing algorithm from domain logic.
 
-### 052. Определить TokenSignerPort
+### 052. Define TokenSignerPort
 
-Изолировать JWT и opaque token generation от use cases.
+Isolate JWT and opaque token generation from use cases.
 
-### 053. Определить SessionStorePort
+### 053. Define SessionStorePort
 
-Поддержать PostgreSQL, Redis или hybrid session storage.
+Support PostgreSQL, Redis, or hybrid session storage.
 
-### 054. Определить EmailSenderPort
+### 054. Define EmailSenderPort
 
-Отделить verification и reset notifications от email provider.
+Separate verification and reset notifications from the email provider.
 
-### 055. Определить ClockPort
+### 055. Define ClockPort
 
-Обеспечить детерминированное тестирование expiration и rotation.
+Enable deterministic testing of expiration and rotation.
 
-### 056. Определить RandomGeneratorPort
+### 056. Define RandomGeneratorPort
 
-Использовать cryptographically secure identifiers и secrets.
+Use cryptographically secure identifiers and secrets.
 
-### 057. Использовать explicit DI tokens
+### 057. Use explicit DI tokens
 
-Не полагаться на runtime TypeScript interfaces для dependency injection.
+Do not rely on runtime TypeScript interfaces for dependency injection.
 
-### 058. Запретить infrastructure imports в domain
+### 058. Prohibit infrastructure imports in domain
 
-Добавить автоматические architecture checks.
+Add automatic architecture checks.
 
-### 059. Запретить deep imports между modules
+### 059. Prohibit deep imports between modules
 
-Экспортировать только публичные contracts и application ports.
+Export only public contracts and application ports.
 
-### 060. Документировать dependency direction
+### 060. Document dependency direction
 
-Зафиксировать допустимые зависимости между layers и modules.
+Record allowed dependencies between layers and modules.
 
-## 4. Identity model и user lifecycle
+## 4. Identity model and user lifecycle
 
-### 061. Спроектировать User entity
+### 061. Design the User entity
 
-Добавить id, status, primaryEmail, timestamps и security metadata.
+Add id, status, primaryEmail, timestamps, and security metadata.
 
-### 062. Создать UserId value object
+### 062. Create the UserId value object
 
-Исключить случайное смешивание user identifiers с другими IDs.
+Prevent accidental mixing of user identifiers with other IDs.
 
-### 063. Создать Email value object
+### 063. Create the Email value object
 
-Добавить normalization, validation и case-insensitive comparison.
+Add normalization, validation, and case-insensitive comparison.
 
-### 064. Определить email uniqueness policy
+### 064. Define the email uniqueness policy
 
-Зафиксировать глобальную uniqueness и правила повторного использования адресов.
+Record global uniqueness and address reuse rules.
 
-### 065. Разделить User и UserProfile
+### 065. Separate User and UserProfile
 
-Отделить authentication identity от display name и application-specific данных.
+Separate authentication identity from display name and application-specific data.
 
-### 066. Реализовать User status machine
+### 066. Implement the User status machine
 
-Поддержать pending, active, locked, suspended, deactivated и deleted states.
+Support pending, active, locked, suspended, deactivated, and deleted states.
 
-### 067. Реализовать user registration
+### 067. Implement user registration
 
-Создавать pending identity с неподтверждённым email.
+Create a pending identity with an unverified email.
 
-### 068. Реализовать registration idempotency
+### 068. Implement registration idempotency
 
-Не создавать duplicate users при повторном request.
+Do not create duplicate users on repeated request.
 
-### 069. Реализовать account activation
+### 069. Implement account activation
 
-Активировать identity после выполнения обязательных verification steps.
+Activate identity after completing required verification steps.
 
-### 070. Реализовать account suspension
+### 070. Implement account suspension
 
-Блокировать authentication без удаления credentials и audit history.
+Block authentication without deleting credentials and audit history.
 
-### 071. Реализовать account reactivation
+### 071. Implement account reactivation
 
-Восстанавливать доступ после административного решения.
+Restore access after an administrative decision.
 
-### 072. Реализовать account lock
+### 072. Implement account lock
 
-Временно блокировать authentication после security event.
+Temporarily block authentication after a security event.
 
-### 073. Реализовать account unlock
+### 073. Implement account unlock
 
-Поддержать automatic и administrative unlock.
+Support automatic and administrative unlock.
 
-### 074. Реализовать account deactivation
+### 074. Implement account deactivation
 
-Отзывать sessions, refresh tokens и API keys пользователя.
+Revoke the user's sessions, refresh tokens, and API keys.
 
-### 075. Реализовать account deletion request
+### 075. Implement an account deletion request
 
-Создавать управляемый workflow с retention period.
+Create a managed workflow with a retention period.
 
-### 076. Реализовать soft deletion
+### 076. Implement soft deletion
 
-Скрывать identity из обычных queries без физического удаления security records.
+Hide identity from regular queries without physically deleting security records.
 
-### 077. Реализовать account anonymization
+### 077. Implement account anonymization
 
-Удалять необязательные PII без повреждения audit и authorization history.
+Remove optional PII without damaging audit and authorization history.
 
-### 078. Реализовать identity merge policy
+### 078. Implement an identity merge policy
 
-Определить безопасное объединение duplicate identities.
+Define safe merging of duplicate identities.
 
-### 079. Создать user lifecycle events
+### 079. Create user lifecycle events
 
-Публиковать UserRegistered, UserActivated, UserSuspended и UserDeactivated.
+Publish UserRegistered, UserActivated, UserSuspended, and UserDeactivated.
 
-### 080. Тестировать user lifecycle invariants
+### 080. Test user lifecycle invariants
 
-Проверить допустимые transitions и обязательный credential revocation.
+Check allowed transitions and mandatory credential revocation.
 
 ## 5. Password credentials
 
-### 081. Спроектировать PasswordCredential entity
+### 081. Design the PasswordCredential entity
 
-Хранить userId, passwordHash, algorithm, parameters и timestamps.
+Store userId, passwordHash, algorithm, parameters, and timestamps.
 
-### 082. Использовать Argon2id
+### 082. Use Argon2id
 
-Настроить memory cost, time cost и parallelism для production environment.
+Configure memory cost, time cost, and parallelism for the production environment.
 
-### 083. Исследовать bcrypt и scrypt
+### 083. Research bcrypt and scrypt
 
-Сравнить свойства algorithms и зафиксировать причины выбора Argon2id.
+Compare algorithm properties and record the reasons for choosing Argon2id.
 
-### 084. Создать password hashing benchmark
+### 084. Create a password hashing benchmark
 
-Подобрать параметры hashing по security и latency targets.
+Select hashing parameters according to security and latency targets.
 
-### 085. Реализовать per-password salt
+### 085. Implement per-password salt
 
-Использовать уникальный cryptographic salt для каждого credential.
+Use a unique cryptographic salt for each credential.
 
-### 086. Реализовать pepper
+### 086. Implement pepper
 
-Добавить application-level secret отдельно от database.
+Add an application-level secret separately from the database.
 
-### 087. Реализовать password verification
+### 087. Implement password verification
 
-Сравнивать hashes через безопасную library implementation.
+Compare hashes through a secure library implementation.
 
-### 088. Реализовать hash parameter upgrade
+### 088. Implement hash parameter upgrade
 
-Перехешировать password после успешного login при устаревших параметрах.
+Rehash the password after successful login when parameters are outdated.
 
-### 089. Реализовать password policy
+### 089. Implement a password policy
 
-Проверять минимальную длину и запрещённые категории credentials.
+Check minimum length and prohibited credential categories.
 
-### 090. Не ограничивать password composition искусственными правилами
+### 090. Do not restrict password composition with artificial rules
 
-Не требовать обязательные символы, снижающие реальную entropy через предсказуемые patterns.
+Do not require mandatory characters that reduce real entropy through predictable patterns.
 
-### 091. Проверять compromised passwords
+### 091. Check compromised passwords
 
-Интегрировать локальный или внешний breach dataset.
+Integrate a local or external breach dataset.
 
-### 092. Реализовать password history
+### 092. Implement password history
 
-Запрещать повторное использование последних credentials при необходимости policy.
+Prohibit reuse of recent credentials when required by policy.
 
-### 093. Реализовать password change
+### 093. Implement password change
 
-Требовать текущий password или step-up authentication.
+Require the current password or step-up authentication.
 
-### 094. Реализовать forced password change
+### 094. Implement forced password change
 
-Поддержать administrative requirement без хранения temporary plaintext password.
+Support an administrative requirement without storing a temporary plaintext password.
 
-### 095. Инвалидировать sessions после password change
+### 095. Invalidate sessions after password change
 
-Завершать выбранные или все sessions согласно security policy.
+Terminate selected or all sessions according to security policy.
 
-### 096. Реализовать credential version
+### 096. Implement credential version
 
-Увеличивать version при password change для token invalidation.
+Increment the version on password change for token invalidation.
 
-### 097. Реализовать password expiration policy
+### 097. Implement a password expiration policy
 
-Поддержать configurable expiration только для environments, где это требуется.
+Support configurable expiration only for environments where it is required.
 
-### 098. Защитить password endpoints
+### 098. Protect password endpoints
 
-Добавить rate limiting, audit и sensitive-field redaction.
+Add rate limiting, audit, and sensitive-field redaction.
 
-### 099. Реализовать constant-shape login response
+### 099. Implement a constant-shape login response
 
-Не раскрывать существование пользователя через различающиеся messages.
+Do not reveal user existence through differing messages.
 
-### 100. Тестировать password credential security
+### 100. Test password credential security
 
-Проверить hashing, migration, reuse, timing и invalidation scenarios.
+Check hashing, migration, reuse, timing, and invalidation scenarios.
 
-## 6. Email verification и password reset
+## 6. Email verification and password reset
 
-### 101. Спроектировать VerificationToken entity
+### 101. Design the VerificationToken entity
 
-Хранить token hash, purpose, userId, expiresAt, usedAt и metadata.
+Store token hash, purpose, userId, expiresAt, usedAt, and metadata.
 
-### 102. Генерировать cryptographically secure tokens
+### 102. Generate cryptographically secure tokens
 
-Использовать достаточную entropy и URL-safe encoding.
+Use sufficient entropy and URL-safe encoding.
 
-### 103. Хранить verification tokens как hashes
+### 103. Store verification tokens as hashes
 
-Не сохранять raw token в database.
+Do not save the raw token in the database.
 
-### 104. Реализовать email verification request
+### 104. Implement an email verification request
 
-Создавать одноразовый token и отправлять verification link.
+Create a one-time token and send a verification link.
 
-### 105. Реализовать email verification completion
+### 105. Implement email verification completion
 
-Проверять hash, purpose, expiration и usage state.
+Check hash, purpose, expiration, and usage state.
 
-### 106. Реализовать verification token rotation
+### 106. Implement verification token rotation
 
-Инвалидировать предыдущий active token при повторной отправке.
+Invalidate the previous active token on resend.
 
-### 107. Реализовать verification resend
+### 107. Implement verification resend
 
-Добавить cooldown и rate limiting.
+Add cooldown and rate limiting.
 
-### 108. Реализовать verification expiration
+### 108. Implement verification expiration
 
-Отклонять просроченные tokens с безопасным error response.
+Reject expired tokens with a safe error response.
 
-### 109. Реализовать email change request
+### 109. Implement an email change request
 
-Требовать подтверждение нового email и step-up authentication.
+Require confirmation of the new email and step-up authentication.
 
-### 110. Реализовать email change completion
+### 110. Implement email change completion
 
-Атомарно обновлять primaryEmail и invalidation metadata.
+Atomically update primaryEmail and invalidation metadata.
 
-### 111. Спроектировать PasswordResetRequest
+### 111. Design PasswordResetRequest
 
-Хранить token hash, userId, expiresAt, usedAt и request context.
+Store token hash, userId, expiresAt, usedAt, and request context.
 
-### 112. Реализовать password reset request
+### 112. Implement a password reset request
 
-Возвращать одинаковый response для существующего и неизвестного email.
+Return the same response for an existing and unknown email.
 
-### 113. Реализовать password reset completion
+### 113. Implement password reset completion
 
-Проверять token и обновлять credential в одной transaction.
+Check the token and update the credential in one transaction.
 
-### 114. Инвалидировать reset token после использования
+### 114. Invalidate the reset token after use
 
-Запрещать replay успешного reset request.
+Prohibit replay of a successful reset request.
 
-### 115. Инвалидировать старые reset tokens
+### 115. Invalidate old reset tokens
 
-Отзывать все незавершённые tokens после успешной смены password.
+Revoke all incomplete tokens after a successful password change.
 
-### 116. Отзывать sessions после password reset
+### 116. Revoke sessions after password reset
 
-Завершать существующие sessions и refresh token families.
+Terminate existing sessions and refresh token families.
 
-### 117. Отправлять security notification
+### 117. Send a security notification
 
-Уведомлять пользователя о password change и reset completion.
+Notify the user about password change and reset completion.
 
-### 118. Реализовать reset abuse protection
+### 118. Implement reset abuse protection
 
-Ограничивать частоту requests по email, IP и device fingerprint.
+Limit request frequency by email, IP, and device fingerprint.
 
-### 119. Добавить audit для verification и reset
+### 119. Add audit for verification and reset
 
-Фиксировать request, success, failure и token replay.
+Record request, success, failure, and token replay.
 
-### 120. Тестировать recovery flows
+### 120. Test recovery flows
 
-Проверить expiration, duplicate requests, replay и concurrent completion.
+Check expiration, duplicate requests, replay, and concurrent completion.
 
-## 7. Sessions и cookies
+## 7. Sessions and cookies
 
-### 121. Спроектировать Session entity
+### 121. Design the Session entity
 
-Хранить sessionId, userId, status, createdAt, lastSeenAt и expiresAt.
+Store sessionId, userId, status, createdAt, lastSeenAt, and expiresAt.
 
-### 122. Хранить session identifiers как hashes
+### 122. Store session identifiers as hashes
 
-Не сохранять raw session cookie в database.
+Do not save the raw session cookie in the database.
 
-### 123. Генерировать secure session identifiers
+### 123. Generate secure session identifiers
 
-Использовать cryptographically secure random values.
+Use cryptographically secure random values.
 
-### 124. Реализовать session creation
+### 124. Implement session creation
 
-Создавать session только после успешной authentication.
+Create a session only after successful authentication.
 
-### 125. Реализовать session validation
+### 125. Implement session validation
 
-Проверять status, expiration, user status и credential version.
+Check status, expiration, user status, and credential version.
 
-### 126. Реализовать absolute expiration
+### 126. Implement absolute expiration
 
-Ограничивать максимальный срок жизни session.
+Limit the maximum session lifetime.
 
-### 127. Реализовать idle expiration
+### 127. Implement idle expiration
 
-Завершать session после периода неактивности.
+Terminate the session after a period of inactivity.
 
-### 128. Реализовать sliding expiration
+### 128. Implement sliding expiration
 
-Продлевать session в пределах absolute lifetime.
+Extend the session within the absolute lifetime.
 
-### 129. Реализовать last-seen throttling
+### 129. Implement last-seen throttling
 
-Не обновлять session record на каждый request.
+Do not update the session record on every request.
 
-### 130. Реализовать session rotation
+### 130. Implement session rotation
 
-Менять session identifier после login и privilege elevation.
+Change the session identifier after login and privilege elevation.
 
-### 131. Защититься от session fixation
+### 131. Protect against session fixation
 
-Никогда не сохранять pre-authentication session identifier после login.
+Never preserve the pre-authentication session identifier after login.
 
-### 132. Настроить secure cookies
+### 132. Configure secure cookies
 
-Использовать HttpOnly, Secure, SameSite и ограниченный Path.
+Use HttpOnly, Secure, SameSite, and a restricted Path.
 
-### 133. Определить cookie domain policy
+### 133. Define the cookie domain policy
 
-Не расширять cookie scope на лишние subdomains.
+Do not expand cookie scope to unnecessary subdomains.
 
-### 134. Реализовать CSRF protection
+### 134. Implement CSRF protection
 
-Использовать synchronizer token или double-submit pattern для cookie auth.
+Use a synchronizer token or double-submit pattern for cookie auth.
 
-### 135. Реализовать session revocation
+### 135. Implement session revocation
 
-Позволить завершить одну выбранную session.
+Allow termination of one selected session.
 
-### 136. Реализовать revoke-all sessions
+### 136. Implement revoke-all sessions
 
-Завершать все sessions пользователя кроме текущей или включая её.
+Terminate all user sessions except the current one or including it.
 
-### 137. Реализовать device session list
+### 137. Implement a device session list
 
-Показывать device metadata, location approximation и last activity.
+Show device metadata, location approximation, and last activity.
 
-### 138. Реализовать suspicious session detection
+### 138. Implement suspicious session detection
 
-Фиксировать резкую смену device, ASN или geography.
+Record abrupt changes in device, ASN, or geography.
 
-### 139. Реализовать Redis session cache
+### 139. Implement Redis session cache
 
-Ускорить validation без потери authoritative PostgreSQL state.
+Accelerate validation without losing authoritative PostgreSQL state.
 
-### 140. Тестировать session lifecycle
+### 140. Test the session lifecycle
 
-Проверить rotation, expiration, revocation, CSRF и concurrent requests.
+Check rotation, expiration, revocation, CSRF, and concurrent requests.
 
-## 8. Access tokens и refresh tokens
+## 8. Access tokens and refresh tokens
 
-### 141. Спроектировать AccessToken claims
+### 141. Design AccessToken claims
 
-Добавить subject, issuer, audience, issuedAt, expiresAt, sessionId и scopes.
+Add subject, issuer, audience, issuedAt, expiresAt, sessionId, and scopes.
 
-### 142. Минимизировать JWT payload
+### 142. Minimize JWT payload
 
-Не включать PII и изменяемые authorization данные без необходимости.
+Do not include PII and mutable authorization data unless necessary.
 
-### 143. Реализовать asymmetric token signing
+### 143. Implement asymmetric token signing
 
-Использовать RSA или ECDSA keys для отделения signing и verification.
+Use RSA or ECDSA keys to separate signing and verification.
 
-### 144. Реализовать key identifiers
+### 144. Implement key identifiers
 
-Добавлять `kid` для выбора verification key.
+Add `kid` for verification key selection.
 
-### 145. Создать JWKS endpoint
+### 145. Create a JWKS endpoint
 
-Публиковать активные public keys для resource services.
+Publish active public keys for resource services.
 
-### 146. Реализовать signing key rotation
+### 146. Implement signing key rotation
 
-Поддерживать одновременно current и previous verification keys.
+Support current and previous verification keys simultaneously.
 
-### 147. Проверять issuer и audience
+### 147. Check issuer and audience
 
-Не принимать token, выпущенный для другого service или environment.
+Do not accept a token issued for another service or environment.
 
-### 148. Проверять token lifetime
+### 148. Check token lifetime
 
-Валидировать exp, nbf и допустимый clock skew.
+Validate exp, nbf, and allowed clock skew.
 
-### 149. Проверять signature algorithm
+### 149. Check the signature algorithm
 
-Запрещать algorithm confusion и неподдерживаемые algorithms.
+Prohibit algorithm confusion and unsupported algorithms.
 
-### 150. Спроектировать RefreshToken entity
+### 150. Design the RefreshToken entity
 
-Хранить token hash, familyId, sessionId, status и expiration.
+Store token hash, familyId, sessionId, status, and expiration.
 
-### 151. Реализовать refresh token rotation
+### 151. Implement refresh token rotation
 
-Выдавать новый token при каждом успешном refresh.
+Issue a new token on every successful refresh.
 
-### 152. Реализовать refresh token reuse detection
+### 152. Implement refresh token reuse detection
 
-Определять повторное использование уже rotated token.
+Detect repeated use of an already rotated token.
 
-### 153. Отзывать refresh token family
+### 153. Revoke the refresh token family
 
-Завершать всю цепочку при обнаружении reuse.
+Terminate the entire chain when reuse is detected.
 
-### 154. Связать refresh token с session
+### 154. Bind the refresh token to the session
 
-Не позволять refresh после revocation или expiration session.
+Do not allow refresh after session revocation or expiration.
 
-### 155. Реализовать refresh token absolute expiration
+### 155. Implement refresh token absolute expiration
 
-Ограничивать максимальный lifetime независимо от rotation.
+Limit the maximum lifetime regardless of rotation.
 
-### 156. Реализовать refresh token idle expiration
+### 156. Implement refresh token idle expiration
 
-Завершать неиспользуемые token families.
+Terminate unused token families.
 
-### 157. Реализовать opaque refresh tokens
+### 157. Implement opaque refresh tokens
 
-Не раскрывать внутренние claims в client-visible token.
+Do not expose internal claims in a client-visible token.
 
-### 158. Реализовать token introspection
+### 158. Implement token introspection
 
-Предоставить protected endpoint для проверки opaque или revocable token.
+Provide a protected endpoint for checking an opaque or revocable token.
 
-### 159. Реализовать token revocation endpoint
+### 159. Implement a token revocation endpoint
 
-Позволить client отозвать refresh или access token reference.
+Allow the client to revoke a refresh or access token reference.
 
-### 160. Тестировать token lifecycle
+### 160. Test the token lifecycle
 
-Проверить rotation, reuse, key rollover, audience и revocation.
+Check rotation, reuse, key rollover, audience, and revocation.
 
-## 9. MFA, step-up authentication и passkeys
+## 9. MFA, step-up authentication, and passkeys
 
-### 161. Спроектировать AuthenticationFactor
+### 161. Design AuthenticationFactor
 
-Поддержать password, TOTP, WebAuthn и recovery code types.
+Support password, TOTP, WebAuthn, and recovery code types.
 
-### 162. Реализовать MFA enrollment state
+### 162. Implement MFA enrollment state
 
-Разделить pending, active, suspended и revoked factor states.
+Separate pending, active, suspended, and revoked factor states.
 
-### 163. Реализовать TOTP enrollment
+### 163. Implement TOTP enrollment
 
-Генерировать secret, provisioning URI и initial verification challenge.
+Generate a secret, provisioning URI, and initial verification challenge.
 
-### 164. Хранить TOTP secrets безопасно
+### 164. Store TOTP secrets securely
 
-Шифровать secrets at rest и ограничивать доступ application role.
+Encrypt secrets at rest and restrict access by application role.
 
-### 165. Реализовать TOTP verification
+### 165. Implement TOTP verification
 
-Проверять допустимое временное окно и предотвращать replay одного code.
+Check the allowed time window and prevent replay of the same code.
 
-### 166. Реализовать TOTP removal
+### 166. Implement TOTP removal
 
-Требовать step-up authentication или recovery procedure.
+Require step-up authentication or a recovery procedure.
 
-### 167. Реализовать recovery codes
+### 167. Implement recovery codes
 
-Генерировать одноразовые codes и хранить только hashes.
+Generate one-time codes and store only hashes.
 
-### 168. Реализовать recovery code consumption
+### 168. Implement recovery code consumption
 
-Атомарно помечать code использованным.
+Atomically mark a code as used.
 
-### 169. Реализовать recovery code regeneration
+### 169. Implement recovery code regeneration
 
-Инвалидировать предыдущий набор после подтверждения identity.
+Invalidate the previous set after identity confirmation.
 
-### 170. Исследовать WebAuthn
+### 170. Research WebAuthn
 
-Разобрать authenticator, credential, challenge, origin и relying party.
+Examine authenticator, credential, challenge, origin, and relying party.
 
-### 171. Реализовать WebAuthn registration
+### 171. Implement WebAuthn registration
 
-Проверять challenge, origin, RP ID и attestation result.
+Check challenge, origin, RP ID, and attestation result.
 
-### 172. Реализовать WebAuthn authentication
+### 172. Implement WebAuthn authentication
 
-Проверять assertion, signature counter и user presence.
+Check assertion, signature counter, and user presence.
 
-### 173. Поддержать discoverable credentials
+### 173. Support discoverable credentials
 
-Реализовать passkey login без предварительного ввода username.
+Implement passkey login without prior username entry.
 
-### 174. Обрабатывать cloned authenticator signals
+### 174. Handle cloned authenticator signals
 
-Реагировать на некорректное изменение signature counter.
+Respond to an incorrect change in the signature counter.
 
-### 175. Реализовать MFA challenge entity
+### 175. Implement the MFA challenge entity
 
-Хранить purpose, factor, expiration и attempt limits.
+Store purpose, factor, expiration, and attempt limits.
 
-### 176. Реализовать step-up authentication
+### 176. Implement step-up authentication
 
-Повышать assurance level для критичных operations.
+Increase assurance level for critical operations.
 
-### 177. Реализовать remembered device
+### 177. Implement remembered device
 
-Создавать ограниченный trusted-device credential с expiration.
+Create a restricted trusted-device credential with expiration.
 
-### 178. Реализовать MFA policy
+### 178. Implement MFA policy
 
-Требовать MFA по role, tenant, risk level или operation.
+Require MFA by role, tenant, risk level, or operation.
 
-### 179. Реализовать MFA recovery
+### 179. Implement MFA recovery
 
-Создать защищённый process без обхода existing factors.
+Create a protected process without bypassing existing factors.
 
-### 180. Тестировать MFA flows
+### 180. Test MFA flows
 
-Проверить enrollment, replay, recovery, step-up и factor revocation.
+Check enrollment, replay, recovery, step-up, and factor revocation.
 
-## 10. API keys и machine credentials
+## 10. API keys and machine credentials
 
-### 181. Спроектировать APIKey entity
+### 181. Design the APIKey entity
 
-Хранить owner, prefix, hash, scopes, status и expiration.
+Store owner, prefix, hash, scopes, status, and expiration.
 
-### 182. Генерировать API key secret
+### 182. Generate an API key secret
 
-Использовать cryptographically secure random value достаточной длины.
+Use a cryptographically secure random value of sufficient length.
 
-### 183. Хранить API keys как hashes
+### 183. Store API keys as hashes
 
-Показывать raw secret только один раз после создания.
+Show the raw secret only once after creation.
 
-### 184. Реализовать API key prefix
+### 184. Implement an API key prefix
 
-Использовать prefix для поиска key record и идентификации environment.
+Use a prefix to find the key record and identify the environment.
 
-### 185. Реализовать API key creation
+### 185. Implement API key creation
 
-Проверять owner authorization, scopes и expiration policy.
+Check owner authorization, scopes, and expiration policy.
 
-### 186. Реализовать API key authentication
+### 186. Implement API key authentication
 
-Извлекать prefix, проверять hash, status и expiration.
+Extract the prefix and check hash, status, and expiration.
 
-### 187. Реализовать API key scopes
+### 187. Implement API key scopes
 
-Ограничивать разрешённые actions и resources.
+Restrict allowed actions and resources.
 
-### 188. Реализовать read-only mode
+### 188. Implement read-only mode
 
-Запрещать mutation operations для read-only credentials.
+Prohibit mutation operations for read-only credentials.
 
-### 189. Реализовать resource restrictions
+### 189. Implement resource restrictions
 
-Ограничивать key конкретными projects, organizations или services.
+Restrict the key to specific projects, organizations, or services.
 
-### 190. Реализовать API key rotation
+### 190. Implement API key rotation
 
-Создавать новый key и поддерживать controlled overlap period.
+Create a new key and support a controlled overlap period.
 
-### 191. Реализовать API key revocation
+### 191. Implement API key revocation
 
-Немедленно блокировать использование compromised credential.
+Immediately block use of a compromised credential.
 
-### 192. Реализовать API key expiration
+### 192. Implement API key expiration
 
-Поддерживать обязательный и configurable lifetime.
+Support mandatory and configurable lifetime.
 
-### 193. Реализовать last-used metadata
+### 193. Implement last-used metadata
 
-Сохранять lastUsedAt, IP и sanitized user agent.
+Save lastUsedAt, IP, and sanitized user agent.
 
-### 194. Ограничить last-used writes
+### 194. Limit last-used writes
 
-Не обновлять database на каждый API request.
+Do not update the database on every API request.
 
-### 195. Реализовать service accounts
+### 195. Implement service accounts
 
-Создавать non-human identities для backend integrations.
+Create non-human identities for backend integrations.
 
-### 196. Разделить user и service-account permissions
+### 196. Separate user and service-account permissions
 
-Не выдавать machine identity интерактивные user capabilities.
+Do not grant machine identity interactive user capabilities.
 
-### 197. Реализовать API key rate limiting
+### 197. Implement API key rate limiting
 
-Применять limits по credential и owner scope.
+Apply limits by credential and owner scope.
 
-### 198. Реализовать API key audit
+### 198. Implement API key audit
 
-Фиксировать creation, rotation, use, denial и revocation.
+Record creation, rotation, use, denial, and revocation.
 
-### 199. Реализовать secret scanning patterns
+### 199. Implement secret scanning patterns
 
-Позволить CI и external scanners обнаруживать формат Authgate keys.
+Allow CI and external scanners to detect the Authgate key format.
 
-### 200. Тестировать API key security
+### 200. Test API key security
 
-Проверить hashing, scopes, rotation, revocation и prefix collisions.
+Check hashing, scopes, rotation, revocation, and prefix collisions.
 
 ## 11. OAuth 2.0 authorization server basics
 
-### 201. Спроектировать OAuthClient entity
+### 201. Design the OAuthClient entity
 
-Хранить clientId, type, redirect URIs, grants, scopes и status.
+Store clientId, type, redirect URIs, grants, scopes, and status.
 
-### 202. Разделить public и confidential clients
+### 202. Separate public and confidential clients
 
-Не выдавать client secret приложениям, неспособным его безопасно хранить.
+Do not issue a client secret to applications unable to store it securely.
 
-### 203. Реализовать client registration
+### 203. Implement client registration
 
-Создавать OAuth client с валидированными metadata и policies.
+Create an OAuth client with validated metadata and policies.
 
-### 204. Хранить client secrets как hashes
+### 204. Store client secrets as hashes
 
-Показывать raw secret только при создании или rotation.
+Show the raw secret only during creation or rotation.
 
-### 205. Реализовать client secret rotation
+### 205. Implement client secret rotation
 
-Поддерживать controlled overlap нескольких secrets.
+Support a controlled overlap of multiple secrets.
 
-### 206. Реализовать redirect URI validation
+### 206. Implement redirect URI validation
 
-Требовать точное совпадение зарегистрированного URI.
+Require an exact match with the registered URI.
 
-### 207. Спроектировать AuthorizationCode entity
+### 207. Design the AuthorizationCode entity
 
-Хранить code hash, client, user, redirect URI, scopes и expiration.
+Store code hash, client, user, redirect URI, scopes, and expiration.
 
-### 208. Реализовать Authorization Code Flow
+### 208. Implement Authorization Code Flow
 
-Выдавать authorization code после authentication и consent.
+Issue an authorization code after authentication and consent.
 
-### 209. Реализовать PKCE
+### 209. Implement PKCE
 
-Поддержать `S256` code challenge для public и confidential clients.
+Support `S256` code challenge for public and confidential clients.
 
-### 210. Запретить implicit flow
+### 210. Prohibit implicit flow
 
-Не выдавать access token через browser redirect fragment.
+Do not issue an access token through a browser redirect fragment.
 
-### 211. Реализовать state validation guidance
+### 211. Implement state validation guidance
 
-Документировать обязательное использование state client application.
+Document mandatory use of state by the client application.
 
-### 212. Реализовать authorization code one-time use
+### 212. Implement authorization code one-time use
 
-Атомарно помечать code использованным при token exchange.
+Atomically mark the code as used during token exchange.
 
-### 213. Реализовать token endpoint
+### 213. Implement the token endpoint
 
-Проверять client, grant, code, redirect URI и PKCE verifier.
+Check client, grant, code, redirect URI, and PKCE verifier.
 
-### 214. Реализовать Client Credentials Flow
+### 214. Implement Client Credentials Flow
 
-Выдавать machine access tokens для service accounts.
+Issue machine access tokens for service accounts.
 
-### 215. Реализовать refresh token grant
+### 215. Implement refresh token grant
 
-Выполнять rotation и client binding.
+Perform rotation and client binding.
 
-### 216. Спроектировать OAuthScope
+### 216. Design OAuthScope
 
-Хранить стабильный code, description и allowed resource audiences.
+Store stable code, description, and allowed resource audiences.
 
-### 217. Реализовать scope validation
+### 217. Implement scope validation
 
-Не позволять client запрашивать незарегистрированные scopes.
+Do not allow the client to request unregistered scopes.
 
-### 218. Реализовать consent screen data
+### 218. Implement consent screen data
 
-Предоставлять client identity и запрашиваемые permissions.
+Provide client identity and requested permissions.
 
-### 219. Реализовать consent persistence
+### 219. Implement consent persistence
 
-Сохранять user grants с возможностью отзыва.
+Save user grants with the ability to revoke them.
 
-### 220. Тестировать OAuth grant flows
+### 220. Test OAuth grant flows
 
-Проверить PKCE, redirect URI, code replay, scope escalation и client authentication.
+Check PKCE, redirect URI, code replay, scope escalation, and client authentication.
 
-## 12. OpenID Connect и federation basics
+## 12. OpenID Connect and federation basics
 
-### 221. Реализовать OpenID Provider metadata
+### 221. Implement OpenID Provider metadata
 
-Создать discovery endpoint с issuer, endpoints и supported algorithms.
+Create a discovery endpoint with issuer, endpoints, and supported algorithms.
 
-### 222. Реализовать ID Token
+### 222. Implement ID Token
 
-Выдавать signed token с subject, audience, authTime и nonce.
+Issue a signed token with subject, audience, authTime, and nonce.
 
-### 223. Проверять nonce
+### 223. Check nonce
 
-Связывать authentication request и ID Token для предотвращения replay.
+Bind the authentication request and ID Token to prevent replay.
 
-### 224. Реализовать UserInfo endpoint
+### 224. Implement the UserInfo endpoint
 
-Возвращать claims в пределах предоставленных scopes.
+Return claims within granted scopes.
 
-### 225. Поддержать standard OIDC scopes
+### 225. Support standard OIDC scopes
 
-Реализовать openid, profile, email и offline_access.
+Implement openid, profile, email, and offline_access.
 
-### 226. Реализовать pairwise subject identifiers
+### 226. Implement pairwise subject identifiers
 
-Не раскрывать один global user identifier всем clients.
+Do not expose one global user identifier to all clients.
 
-### 227. Реализовать auth_time claim
+### 227. Implement the auth_time claim
 
-Позволять clients требовать recent authentication.
+Allow clients to require recent authentication.
 
-### 228. Реализовать max_age
+### 228. Implement max_age
 
-Запрашивать повторную authentication после заданного времени.
+Request repeated authentication after a specified time.
 
-### 229. Реализовать prompt behavior
+### 229. Implement prompt behavior
 
-Поддержать login, consent и none semantics.
+Support login, consent, and none semantics.
 
-### 230. Реализовать acr claim
+### 230. Implement the acr claim
 
-Передавать достигнутый authentication assurance level.
+Transmit the achieved authentication assurance level.
 
-### 231. Реализовать amr claim
+### 231. Implement the amr claim
 
-Передавать использованные authentication methods.
+Transmit the authentication methods used.
 
-### 232. Создать external IdP abstraction
+### 232. Create an external IdP abstraction
 
-Поддержать OIDC identity providers через отдельный adapter.
+Support OIDC identity providers through a separate adapter.
 
-### 233. Реализовать external OIDC login
+### 233. Implement external OIDC login
 
-Проверять issuer, signature, nonce, state и redirect context.
+Check issuer, signature, nonce, state, and redirect context.
 
-### 234. Реализовать identity linking
+### 234. Implement identity linking
 
-Связывать external subject с internal User через подтверждённый process.
+Link the external subject to an internal User through a confirmed process.
 
-### 235. Запретить unsafe email-based linking
+### 235. Prohibit unsafe email-based linking
 
-Не объединять accounts только по непроверенному email claim.
+Do not merge accounts solely by an unverified email claim.
 
-### 236. Реализовать external identity unlinking
+### 236. Implement external identity unlinking
 
-Не позволять удалить последний доступный authentication method.
+Do not allow removal of the last available authentication method.
 
-### 237. Реализовать JIT user provisioning
+### 237. Implement JIT user provisioning
 
-Создавать internal identity при первом успешном external login.
+Create an internal identity on the first successful external login.
 
-### 238. Реализовать external identity audit
+### 238. Implement external identity audit
 
-Фиксировать linking, login, unlinking и provider errors.
+Record linking, login, unlinking, and provider errors.
 
-### 239. Создать identity provider simulator
+### 239. Create an identity provider simulator
 
-Генерировать valid, expired, replayed и malformed OIDC responses.
+Generate valid, expired, replayed, and malformed OIDC responses.
 
-### 240. Тестировать federation flows
+### 240. Test federation flows
 
-Проверить account linking, nonce, state, key rotation и provider outage.
+Check account linking, nonce, state, key rotation, and provider outage.
 
 ## 13. RBAC
 
-### 241. Спроектировать Permission entity
+### 241. Design the Permission entity
 
-Хранить стабильный code, resource type, action и description.
+Store stable code, resource type, action, and description.
 
-### 242. Создать permission naming convention
+### 242. Create a permission naming convention
 
-Использовать формат `resource.action`.
+Use the `resource.action` format.
 
-### 243. Спроектировать Role entity
+### 243. Design the Role entity
 
-Хранить name, type, status, scope и metadata.
+Store name, type, status, scope, and metadata.
 
-### 244. Разделить system и custom roles
+### 244. Separate system and custom roles
 
-Защитить встроенные roles от опасного изменения.
+Protect built-in roles from dangerous modification.
 
-### 245. Спроектировать RolePermission relation
+### 245. Design the RolePermission relation
 
-Связывать roles с immutable permission codes.
+Link roles to immutable permission codes.
 
-### 246. Спроектировать RoleAssignment
+### 246. Design RoleAssignment
 
-Связывать subject, role и scope.
+Link subject, role, and scope.
 
-### 247. Поддержать global roles
+### 247. Support global roles
 
-Назначать platform-level administrative permissions.
+Assign platform-level administrative permissions.
 
-### 248. Поддержать organization roles
+### 248. Support organization roles
 
-Ограничивать assignment конкретной organization.
+Restrict assignment to a specific organization.
 
-### 249. Поддержать project roles
+### 249. Support project roles
 
-Ограничивать assignment конкретным project.
+Restrict assignment to a specific project.
 
-### 250. Реализовать role hierarchy
+### 250. Implement role hierarchy
 
-Наследовать permissions с защитой от циклов.
+Inherit permissions with protection against cycles.
 
-### 251. Реализовать custom role creation
+### 251. Implement custom role creation
 
-Позволить authorized administrators создавать наборы permissions.
+Allow authorized administrators to create permission sets.
 
-### 252. Реализовать role update
+### 252. Implement role update
 
-Изменять permissions с optimistic locking.
+Modify permissions with optimistic locking.
 
-### 253. Реализовать role archive
+### 253. Implement role archive
 
-Запрещать новые assignments без удаления истории.
+Prohibit new assignments without deleting history.
 
-### 254. Запретить удаление используемой role
+### 254. Prohibit deletion of a role in use
 
-Требовать migration assignments.
+Require assignment migration.
 
-### 255. Реализовать assignment expiration
+### 255. Implement assignment expiration
 
-Поддержать временные роли.
+Support temporary roles.
 
-### 256. Реализовать bulk assignments
+### 256. Implement bulk assignments
 
-Назначать roles нескольким subjects с per-item result.
+Assign roles to multiple subjects with a per-item result.
 
-### 257. Реализовать effective permissions
+### 257. Implement effective permissions
 
-Вычислять итоговый набор permissions subject в scope.
+Calculate the subject's final set of permissions within the scope.
 
-### 258. Реализовать permission cache
+### 258. Implement permission cache
 
-Кэшировать effective permissions с version-based invalidation.
+Cache effective permissions with version-based invalidation.
 
-### 259. Реализовать authorization explanation
+### 259. Implement authorization explanation
 
-Показывать, через какую role и assignment предоставлен permission.
+Show through which role and assignment a permission was granted.
 
-### 260. Тестировать RBAC matrix
+### 260. Test the RBAC matrix
 
-Проверить roles, scopes, inheritance, expiration и cache invalidation.
+Check roles, scopes, inheritance, expiration, and cache invalidation.
 
-## 14. ABAC и policy engine
+## 14. ABAC and policy engine
 
-### 261. Спроектировать SubjectAttributes
+### 261. Design SubjectAttributes
 
-Добавить identity type, roles, assurance level и organizational attributes.
+Add identity type, roles, assurance level, and organizational attributes.
 
-### 262. Спроектировать ResourceAttributes
+### 262. Design ResourceAttributes
 
-Добавить owner, tenant, classification, status и sensitivity.
+Add owner, tenant, classification, status, and sensitivity.
 
-### 263. Спроектировать EnvironmentAttributes
+### 263. Design EnvironmentAttributes
 
-Добавить time, IP, network zone, device trust и request channel.
+Add time, IP, network zone, device trust, and request channel.
 
-### 264. Создать Policy entity
+### 264. Create the Policy entity
 
-Хранить effect, actions, resource types, conditions и version.
+Store effect, actions, resource types, conditions, and version.
 
-### 265. Реализовать policy parser
+### 265. Implement a policy parser
 
-Преобразовывать stored representation в безопасную executable model.
+Transform the stored representation into a safe executable model.
 
-### 266. Запретить dynamic code execution
+### 266. Prohibit dynamic code execution
 
-Не использовать `eval` и произвольный JavaScript для policies.
+Do not use `eval` and arbitrary JavaScript for policies.
 
-### 267. Реализовать condition operators
+### 267. Implement condition operators
 
-Поддержать equality, membership, comparison, CIDR и time-window checks.
+Support equality, membership, comparison, CIDR, and time-window checks.
 
-### 268. Реализовать allow policies
+### 268. Implement allow policies
 
-Предоставлять access только при совпадении обязательных conditions.
+Grant access only when required conditions match.
 
-### 269. Реализовать explicit deny
+### 269. Implement explicit deny
 
-Определить приоритет deny над allow.
+Define deny priority over allow.
 
-### 270. Реализовать default deny
+### 270. Implement default deny
 
-Отклонять request при отсутствии подходящей allow policy.
+Reject the request when there is no matching allow policy.
 
-### 271. Реализовать policy combining algorithm
+### 271. Implement a policy combining algorithm
 
-Зафиксировать deny-overrides или другой deterministic алгоритм.
+Record deny-overrides or another deterministic algorithm.
 
-### 272. Реализовать policy versioning
+### 272. Implement policy versioning
 
-Сохранять историю изменений authorization rules.
+Preserve the history of authorization rule changes.
 
-### 273. Реализовать policy activation
+### 273. Implement policy activation
 
-Разделить draft, active и archived versions.
+Separate draft, active, and archived versions.
 
-### 274. Реализовать policy simulation
+### 274. Implement policy simulation
 
-Проверять решение без применения новой policy.
+Check the decision without applying the new policy.
 
-### 275. Реализовать policy diff
+### 275. Implement policy diff
 
-Показывать изменение effective access.
+Show changes in effective access.
 
-### 276. Реализовать PolicyDecision
+### 276. Implement PolicyDecision
 
-Возвращать effect, matched policies, reason и obligations.
+Return effect, matched policies, reason, and obligations.
 
-### 277. Реализовать obligations
+### 277. Implement obligations
 
-Требовать MFA, masking или additional audit для разрешённого действия.
+Require MFA, masking, or additional audit for an allowed action.
 
-### 278. Реализовать policy cache
+### 278. Implement policy cache
 
-Кэшировать compiled policies с version key.
+Cache compiled policies with a version key.
 
-### 279. Исследовать OPA и Cedar
+### 279. Research OPA and Cedar
 
-Сравнить external policy engines с embedded implementation.
+Compare external policy engines with an embedded implementation.
 
-### 280. Тестировать ABAC policies
+### 280. Test ABAC policies
 
-Проверить attributes, deny precedence, simulation и malformed policies.
+Check attributes, deny precedence, simulation, and malformed policies.
 
 ## 15. Backend access control patterns
 
-### 281. Создать AuthenticationContext
+### 281. Create AuthenticationContext
 
-Передавать subject, session, token, assurance и client metadata.
+Pass subject, session, token, assurance, and client metadata.
 
-### 282. Создать AuthorizationContext
+### 282. Create AuthorizationContext
 
-Передавать subject, action, resource и environment attributes.
+Pass subject, action, resource, and environment attributes.
 
-### 283. Реализовать AuthenticationGuard
+### 283. Implement AuthenticationGuard
 
-Проверять supported authentication mechanisms и credential status.
+Check supported authentication mechanisms and credential status.
 
-### 284. Реализовать PermissionGuard
+### 284. Implement PermissionGuard
 
-Проверять required permissions на controller boundary.
+Check required permissions at the controller boundary.
 
-### 285. Реализовать PolicyGuard
+### 285. Implement PolicyGuard
 
-Выполнять ABAC evaluation на controller boundary.
+Perform ABAC evaluation at the controller boundary.
 
-### 286. Не ограничивать authorization guards
+### 286. Do not limit authorization to guards
 
-Повторять критичную проверку внутри application use case.
+Repeat the critical check inside the application use case.
 
-### 287. Реализовать resource-level authorization
+### 287. Implement resource-level authorization
 
-Загружать resource attributes до выполнения mutation.
+Load resource attributes before performing a mutation.
 
-### 288. Защититься от IDOR
+### 288. Protect against IDOR
 
-Не считать знание resource identifier доказательством доступа.
+Do not consider knowledge of a resource identifier proof of access.
 
-### 289. Реализовать ownership policies
+### 289. Implement ownership policies
 
-Разрешать ограниченные actions владельцу resource.
+Allow restricted actions to the resource owner.
 
-### 290. Реализовать scope decorators
+### 290. Implement scope decorators
 
-Объявлять required scopes и permissions без бизнес-логики в metadata.
+Declare required scopes and permissions without business logic in metadata.
 
-### 291. Реализовать composite authorization
+### 291. Implement composite authorization
 
-Объединять permission, ownership, assurance и resource state checks.
+Combine permission, ownership, assurance, and resource state checks.
 
-### 292. Реализовать field-level authorization
+### 292. Implement field-level authorization
 
-Скрывать чувствительные поля response по policy.
+Hide sensitive response fields according to policy.
 
-### 293. Реализовать action-level masking
+### 293. Implement action-level masking
 
-Ограничивать доступные transitions для конкретного subject.
+Restrict available transitions for a specific subject.
 
-### 294. Реализовать batch authorization
+### 294. Implement batch authorization
 
-Эффективно проверять список resources без N+1 policy calls.
+Efficiently check a list of resources without N+1 policy calls.
 
-### 295. Реализовать authorization filtering
+### 295. Implement authorization filtering
 
-Возвращать только resources, доступные caller.
+Return only resources accessible to the caller.
 
-### 296. Не фильтровать полный dataset в memory
+### 296. Do not filter the full dataset in memory
 
-Применять authorization scope на query level.
+Apply authorization scope at the query level.
 
-### 297. Реализовать service-to-service authorization
+### 297. Implement service-to-service authorization
 
-Проверять service identity, audience и machine scopes.
+Check service identity, audience, and machine scopes.
 
-### 298. Реализовать delegated access
+### 298. Implement delegated access
 
-Поддержать ограниченное действие от имени пользователя.
+Support a restricted action on behalf of a user.
 
-### 299. Реализовать impersonation
+### 299. Implement impersonation
 
-Сохранять real actor, impersonated subject, scope и expiration.
+Store the real actor, impersonated subject, scope, and expiration.
 
-### 300. Тестировать access control patterns
+### 300. Test access control patterns
 
-Проверить guards, use cases, query filtering, field masking и impersonation.
+Check guards, use cases, query filtering, field masking, and impersonation.
 
-## 16. Rate limiting и abuse prevention
+## 16. Rate limiting and abuse prevention
 
-### 301. Определить rate-limit dimensions
+### 301. Define rate-limit dimensions
 
-Разделить IP, user, session, API key, client и endpoint limits.
+Separate IP, user, session, API key, client, and endpoint limits.
 
-### 302. Реализовать fixed-window limiter
+### 302. Implement a fixed-window limiter
 
-Создать базовую реализацию для некритичных endpoints.
+Create a basic implementation for non-critical endpoints.
 
-### 303. Реализовать sliding-window limiter
+### 303. Implement a sliding-window limiter
 
-Обеспечить более равномерное ограничение requests.
+Provide more even request limiting.
 
-### 304. Реализовать token bucket
+### 304. Implement token bucket
 
-Поддержать burst capacity и устойчивую скорость.
+Support burst capacity and a sustained rate.
 
-### 305. Реализовать Redis-backed limiter
+### 305. Implement a Redis-backed limiter
 
-Обеспечить согласованное ограничение между instances.
+Provide consistent limiting across instances.
 
-### 306. Использовать atomic Redis operations
+### 306. Use atomic Redis operations
 
-Исключить race conditions при increment и expiration.
+Eliminate race conditions during increment and expiration.
 
-### 307. Реализовать login rate limiting
+### 307. Implement login rate limiting
 
-Ограничивать попытки по IP и normalized identity.
+Limit attempts by IP and normalized identity.
 
-### 308. Реализовать distributed password spraying detection
+### 308. Implement distributed password spraying detection
 
-Обнаруживать попытки одного password против множества users.
+Detect attempts to use one password against multiple users.
 
-### 309. Реализовать credential stuffing detection
+### 309. Implement credential stuffing detection
 
-Обнаруживать массовые attempts с известными credentials.
+Detect large-scale attempts using known credentials.
 
-### 310. Реализовать reset rate limiting
+### 310. Implement reset rate limiting
 
-Ограничивать email, IP и device dimensions.
+Limit email, IP, and device dimensions.
 
-### 311. Реализовать verification resend limits
+### 311. Implement verification resend limits
 
-Предотвращать spam и email abuse.
+Prevent spam and email abuse.
 
-### 312. Реализовать OAuth endpoint limits
+### 312. Implement OAuth endpoint limits
 
-Ограничивать authorization, token и introspection requests.
+Limit authorization, token, and introspection requests.
 
-### 313. Реализовать API key limits
+### 313. Implement API key limits
 
-Применять per-key и per-owner quotas.
+Apply per-key and per-owner quotas.
 
-### 314. Реализовать adaptive throttling
+### 314. Implement adaptive throttling
 
-Ужесточать limits при подозрительном risk score.
+Tighten limits when the risk score is suspicious.
 
-### 315. Реализовать progressive delay
+### 315. Implement progressive delay
 
-Увеличивать задержку после повторных authentication failures.
+Increase the delay after repeated authentication failures.
 
-### 316. Избегать permanent account lockout
+### 316. Avoid permanent account lockout
 
-Не позволять attacker заблокировать чужую identity простыми attempts.
+Do not allow an attacker to lock another identity with simple attempts.
 
-### 317. Реализовать CAPTCHA abstraction
+### 317. Implement CAPTCHA abstraction
 
-Подключать challenge только для повышенного risk level.
+Connect a challenge only for an elevated risk level.
 
-### 318. Реализовать abuse event publishing
+### 318. Implement abuse event publishing
 
-Передавать security signals в audit и alerting pipeline.
+Send security signals to the audit and alerting pipeline.
 
-### 319. Реализовать rate-limit headers
+### 319. Implement rate-limit headers
 
-Возвращать limit, remaining и retry time без раскрытия security policy.
+Return limit, remaining, and retry time without exposing security policy.
 
-### 320. Тестировать abuse controls
+### 320. Test abuse controls
 
-Проверить concurrency, distributed limits, bypass attempts и Redis outage.
+Check concurrency, distributed limits, bypass attempts, and Redis outage.
 
-## 17. Audit logging и security events
+## 17. Audit logging and security events
 
-### 321. Спроектировать AuditEvent
+### 321. Design AuditEvent
 
-Хранить actor, action, target, outcome, timestamp и context.
+Store actor, action, target, outcome, timestamp, and context.
 
-### 322. Разделить audit и application logs
+### 322. Separate audit and application logs
 
-Не использовать обычные logs как authoritative security history.
+Do not use regular logs as authoritative security history.
 
-### 323. Реализовать append-only audit storage
+### 323. Implement append-only audit storage
 
-Запретить update и delete через runtime application role.
+Prohibit update and delete through the runtime application role.
 
-### 324. Фиксировать authentication events
+### 324. Record authentication events
 
-Сохранять login success, failure, logout и session revocation.
+Store login success, failure, logout, and session revocation.
 
-### 325. Фиксировать credential events
+### 325. Record credential events
 
-Сохранять password change, reset, MFA enrollment и recovery.
+Store password change, reset, MFA enrollment, and recovery.
 
-### 326. Фиксировать authorization events
+### 326. Record authorization events
 
-Сохранять critical allow и deny decisions.
+Store critical allow and deny decisions.
 
-### 327. Фиксировать role events
+### 327. Record role events
 
-Сохранять role creation, permission changes и assignments.
+Store role creation, permission changes, and assignments.
 
-### 328. Фиксировать API key events
+### 328. Record API key events
 
-Сохранять creation, rotation, use и revocation.
+Store creation, rotation, use, and revocation.
 
-### 329. Фиксировать OAuth events
+### 329. Record OAuth events
 
-Сохранять consent, code issuance, token issuance и client failures.
+Store consent, code issuance, token issuance, and client failures.
 
-### 330. Фиксировать impersonation events
+### 330. Record impersonation events
 
-Сохранять real actor, target identity и performed actions.
+Store the real actor, target identity, and performed actions.
 
-### 331. Добавить request context
+### 331. Add request context
 
-Хранить requestId, traceId, IP, user agent и clientId.
+Store requestId, traceId, IP, user agent, and clientId.
 
-### 332. Санитизировать audit metadata
+### 332. Sanitize audit metadata
 
-Удалять passwords, raw tokens, secrets и sensitive claims.
+Remove passwords, raw tokens, secrets, and sensitive claims.
 
-### 333. Реализовать audit integrity chain
+### 333. Implement an audit integrity chain
 
-Связывать records hashes для обнаружения изменения истории.
+Link record hashes to detect modification of history.
 
-### 334. Реализовать audit retention
+### 334. Implement audit retention
 
-Настраивать сроки хранения по event type и compliance requirements.
+Configure retention periods by event type and compliance requirements.
 
-### 335. Реализовать audit search API
+### 335. Implement an audit search API
 
-Добавить filtering по actor, action, target, outcome и времени.
+Add filtering by actor, action, target, outcome, and time.
 
-### 336. Реализовать audit export
+### 336. Implement audit export
 
-Выгружать records в JSON или CSV с контрольной суммой.
+Export records to JSON or CSV with a checksum.
 
-### 337. Реализовать security event severity
+### 337. Implement security event severity
 
-Классифицировать informational, warning, high и critical events.
+Classify informational, warning, high, and critical events.
 
-### 338. Реализовать security notifications
+### 338. Implement security notifications
 
-Уведомлять пользователя о password reset, new device и API key creation.
+Notify the user about password reset, new device, and API key creation.
 
-### 339. Реализовать alert triggers
+### 339. Implement alert triggers
 
-Создавать alerts на token reuse, privilege escalation и brute force.
+Create alerts for token reuse, privilege escalation, and brute force.
 
-### 340. Тестировать audit completeness
+### 340. Test audit completeness
 
-Проверить наличие событий для всех критичных security operations.
+Check for events for all critical security operations.
 
-## 18. Cryptography, secrets и key management
+## 18. Cryptography, secrets, and key management
 
-### 341. Создать cryptographic inventory
+### 341. Create a cryptographic inventory
 
-Зафиксировать algorithms, keys, purposes, owners и rotation periods.
+Record algorithms, keys, purposes, owners, and rotation periods.
 
-### 342. Разделить signing и encryption keys
+### 342. Separate signing and encryption keys
 
-Не использовать один key для разных cryptographic purposes.
+Do not use one key for different cryptographic purposes.
 
-### 343. Реализовать key abstraction
+### 343. Implement a key abstraction
 
-Изолировать application code от local files, KMS и HSM.
+Isolate application code from local files, KMS, and HSM.
 
-### 344. Реализовать envelope encryption
+### 344. Implement envelope encryption
 
-Шифровать sensitive values data keys, защищёнными master key.
+Encrypt sensitive values with data keys protected by a master key.
 
-### 345. Шифровать TOTP secrets
+### 345. Encrypt TOTP secrets
 
-Хранить MFA secrets в encrypted form.
+Store MFA secrets in encrypted form.
 
-### 346. Шифровать external provider tokens
+### 346. Encrypt external provider tokens
 
-Защищать refresh tokens и client credentials federation providers.
+Protect refresh tokens and client credentials of federation providers.
 
-### 347. Реализовать signing key rotation
+### 347. Implement signing key rotation
 
-Публиковать новые public keys до начала использования private key.
+Publish new public keys before starting to use the private key.
 
-### 348. Реализовать encryption key rotation
+### 348. Implement encryption key rotation
 
-Перешифровывать sensitive data без полного downtime.
+Re-encrypt sensitive data without full downtime.
 
-### 349. Реализовать secret versioning
+### 349. Implement secret versioning
 
-Хранить key version рядом с encrypted payload.
+Store the key version next to the encrypted payload.
 
-### 350. Реализовать secret loading
+### 350. Implement secret loading
 
-Получать production secrets из защищённого storage.
+Retrieve production secrets from protected storage.
 
-### 351. Запретить secrets в repository
+### 351. Prohibit secrets in the repository
 
-Добавить secret scanning в pre-commit и CI.
+Add secret scanning to pre-commit and CI.
 
-### 352. Запретить secrets в logs
+### 352. Prohibit secrets in logs
 
-Реализовать centralized redaction.
+Implement centralized redaction.
 
-### 353. Реализовать secure random generation
+### 353. Implement secure random generation
 
-Использовать operating-system CSPRNG для tokens и keys.
+Use an operating-system CSPRNG for tokens and keys.
 
-### 354. Реализовать constant-time comparisons
+### 354. Implement constant-time comparisons
 
-Использовать безопасные comparison functions для signatures и hashes.
+Use secure comparison functions for signatures and hashes.
 
-### 355. Настроить TLS
+### 355. Configure TLS
 
-Использовать современные protocol versions и certificate validation.
+Use modern protocol versions and certificate validation.
 
-### 356. Реализовать mTLS для internal clients
+### 356. Implement mTLS for internal clients
 
-Аутентифицировать доверенные service-to-service connections.
+Authenticate trusted service-to-service connections.
 
-### 357. Реализовать key compromise procedure
+### 357. Implement a key compromise procedure
 
-Подготовить emergency rotation и token invalidation.
+Prepare emergency rotation and token invalidation.
 
-### 358. Реализовать cryptographic health checks
+### 358. Implement cryptographic health checks
 
-Проверять наличие active keys без раскрытия secret material.
+Check for active keys without exposing secret material.
 
-### 359. Создать cryptographic test vectors
+### 359. Create cryptographic test vectors
 
-Проверять signing, verification, encryption и rotation.
+Check signing, verification, encryption, and rotation.
 
-### 360. Документировать key management lifecycle
+### 360. Document the key management lifecycle
 
-Описать generation, distribution, activation, rotation, revocation и destruction.
+Describe generation, distribution, activation, rotation, revocation, and destruction.
 
-## 19. Asynchronous workflows и messaging
+## 19. Asynchronous workflows and messaging
 
-### 361. Создать integration event envelope
+### 361. Create an integration event envelope
 
-Добавить eventId, type, version, occurredAt, subject и correlationId.
+Add eventId, type, version, occurredAt, subject, and correlationId.
 
-### 362. Разделить domain и integration events
+### 362. Separate domain and integration events
 
-Не публиковать внутренние entities напрямую.
+Do not publish internal entities directly.
 
-### 363. Реализовать transactional outbox
+### 363. Implement transactional outbox
 
-Атомарно сохранять auth state и integration event.
+Atomically save auth state and the integration event.
 
-### 364. Реализовать outbox publisher
+### 364. Implement an outbox publisher
 
-Публиковать events через RabbitMQ с confirms и retries.
+Publish events through RabbitMQ with confirms and retries.
 
-### 365. Реализовать outbox locking
+### 365. Implement outbox locking
 
-Использовать `FOR UPDATE SKIP LOCKED`.
+Use `FOR UPDATE SKIP LOCKED`.
 
-### 366. Реализовать outbox cleanup
+### 366. Implement outbox cleanup
 
-Архивировать опубликованные records по retention policy.
+Archive published records according to the retention policy.
 
-### 367. Реализовать inbox deduplication
+### 367. Implement inbox deduplication
 
-Не обрабатывать integration event повторно.
+Do not process the integration event repeatedly.
 
-### 368. Реализовать email jobs
+### 368. Implement email jobs
 
-Отправлять verification, reset и security notifications асинхронно.
+Send verification, reset, and security notifications asynchronously.
 
-### 369. Реализовать job idempotency
+### 369. Implement job idempotency
 
-Не отправлять duplicate email при retry.
+Do not send duplicate email on retry.
 
-### 370. Реализовать delayed jobs
+### 370. Implement delayed jobs
 
-Обрабатывать token cleanup и scheduled session expiration.
+Process token cleanup and scheduled session expiration.
 
-### 371. Реализовать retry policy
+### 371. Implement retry policy
 
-Повторять transient failures с exponential backoff и jitter.
+Retry transient failures with exponential backoff and jitter.
 
-### 372. Реализовать dead-letter queue
+### 372. Implement a dead-letter queue
 
-Изолировать необрабатываемые events и jobs.
+Isolate unprocessable events and jobs.
 
-### 373. Реализовать dead-letter inspection
+### 373. Implement dead-letter inspection
 
-Показывать event type, subject, attempts и failure reason.
+Show event type, subject, attempts, and failure reason.
 
-### 374. Реализовать selective redrive
+### 374. Implement selective redrive
 
-Повторно запускать исправленные jobs с audit trail.
+Rerun corrected jobs with an audit trail.
 
-### 375. Реализовать session cleanup job
+### 375. Implement a session cleanup job
 
-Удалять или архивировать expired session records.
+Delete or archive expired session records.
 
-### 376. Реализовать token cleanup job
+### 376. Implement a token cleanup job
 
-Удалять expired verification, reset и refresh token records.
+Delete expired verification, reset, and refresh token records.
 
-### 377. Реализовать compromised credential notification
+### 377. Implement compromised credential notification
 
-Асинхронно уведомлять downstream services о revocation.
+Asynchronously notify downstream services about revocation.
 
-### 378. Реализовать authorization cache invalidation events
+### 378. Implement authorization cache invalidation events
 
-Инвалидировать permissions после role changes.
+Invalidate permissions after role changes.
 
-### 379. Реализовать event contract versioning
+### 379. Implement event contract versioning
 
-Поддержать backward-compatible evolution.
+Support backward-compatible evolution.
 
-### 380. Тестировать asynchronous workflows
+### 380. Test asynchronous workflows
 
-Проверить retries, duplicate delivery, crash recovery и DLQ.
+Check retries, duplicate delivery, crash recovery, and DLQ.
 
-## 20. Persistence и data model
+## 20. Persistence and data model
 
-### 381. Спроектировать PostgreSQL schema
+### 381. Design the PostgreSQL schema
 
-Создать таблицы users, credentials, sessions, tokens, API keys, roles, policies и audit events.
+Create users, credentials, sessions, tokens, API keys, roles, policies, and audit events tables.
 
-### 382. Использовать database constraints
+### 382. Use database constraints
 
-Закрепить uniqueness, required relations и valid status combinations.
+Enforce uniqueness, required relations, and valid status combinations.
 
-### 383. Добавить unique email index
+### 383. Add a unique email index
 
-Использовать normalized email representation.
+Use a normalized email representation.
 
-### 384. Добавить credential constraints
+### 384. Add credential constraints
 
-Запретить несколько active password credentials при выбранной модели.
+Prohibit multiple active password credentials under the selected model.
 
-### 385. Добавить session indexes
+### 385. Add session indexes
 
-Оптимизировать поиск по userId, status и expiresAt.
+Optimize lookup by userId, status, and expiresAt.
 
-### 386. Добавить refresh token indexes
+### 386. Add refresh token indexes
 
-Оптимизировать поиск по hash, familyId и sessionId.
+Optimize lookup by hash, familyId, and sessionId.
 
-### 387. Добавить API key prefix index
+### 387. Add an API key prefix index
 
-Ускорить credential lookup.
+Accelerate credential lookup.
 
-### 388. Добавить role assignment indexes
+### 388. Add role assignment indexes
 
-Оптимизировать effective-permission queries.
+Optimize effective-permission queries.
 
-### 389. Добавить audit indexes
+### 389. Add audit indexes
 
-Поддержать поиск по actor, target и timestamp.
+Support search by actor, target, and timestamp.
 
-### 390. Реализовать optimistic locking
+### 390. Implement optimistic locking
 
-Добавить version для User, Role, Policy и OAuthClient.
+Add version for User, Role, Policy, and OAuthClient.
 
-### 391. Реализовать pessimistic locking
+### 391. Implement pessimistic locking
 
-Использовать row locks для token rotation и one-time code consumption.
+Use row locks for token rotation and one-time code consumption.
 
-### 392. Настроить transaction isolation
+### 392. Configure transaction isolation
 
-Выбрать isolation level для credential и authorization operations.
+Choose an isolation level for credential and authorization operations.
 
-### 393. Реализовать transaction retries
+### 393. Implement transaction retries
 
-Повторять serialization failures без повторных external side effects.
+Retry serialization failures without repeating external side effects.
 
-### 394. Разделить runtime и migration roles
+### 394. Separate runtime and migration roles
 
-Не предоставлять application permission изменять schema.
+Do not grant the application permission to modify the schema.
 
-### 395. Ограничить database privileges
+### 395. Restrict database privileges
 
-Предоставить каждому process минимальный набор прав.
+Grant each process the minimum set of permissions.
 
-### 396. Реализовать soft-delete query policy
+### 396. Implement a soft-delete query policy
 
-Не возвращать deactivated и deleted identities обычным repositories.
+Do not return deactivated and deleted identities from regular repositories.
 
-### 397. Реализовать data retention jobs
+### 397. Implement data retention jobs
 
-Удалять expired operational records согласно policy.
+Delete expired operational records according to policy.
 
-### 398. Реализовать database backup
+### 398. Implement database backup
 
-Настроить point-in-time recovery.
+Configure point-in-time recovery.
 
-### 399. Тестировать restore
+### 399. Test restore
 
-Восстановить auth database и проверить cryptographic compatibility.
+Restore the auth database and check cryptographic compatibility.
 
-### 400. Документировать data ownership
+### 400. Document data ownership
 
-Зафиксировать authoritative tables и derived cache data.
+Record authoritative tables and derived cache data.
 
-## 21. Unit и integration testing
+## 21. Unit and integration testing
 
-### 401. Создать unit tests User state machine
+### 401. Create unit tests for the User state machine
 
-Проверить activation, suspension, lock и deactivation.
+Check activation, suspension, lock, and deactivation.
 
-### 402. Создать unit tests Email value object
+### 402. Create unit tests for the Email value object
 
-Проверить normalization и invalid formats.
+Check normalization and invalid formats.
 
-### 403. Создать unit tests password policy
+### 403. Create unit tests for the password policy
 
-Проверить length, breach detection и history.
+Check length, breach detection, and history.
 
-### 404. Создать unit tests password hashing
+### 404. Create unit tests for password hashing
 
-Проверить verification и parameter migration.
+Check verification and parameter migration.
 
-### 405. Создать unit tests Session state machine
+### 405. Create unit tests for the Session state machine
 
-Проверить expiration, revocation и rotation.
+Check expiration, revocation, and rotation.
 
-### 406. Создать unit tests RefreshToken family
+### 406. Create unit tests for the RefreshToken family
 
-Проверить rotation, reuse detection и family revocation.
+Check rotation, reuse detection, and family revocation.
 
-### 407. Создать unit tests API keys
+### 407. Create unit tests for API keys
 
-Проверить scopes, expiration и status.
+Check scopes, expiration, and status.
 
-### 408. Создать unit tests OAuth codes
+### 408. Create unit tests for OAuth codes
 
-Проверить expiration, PKCE и one-time consumption.
+Check expiration, PKCE, and one-time consumption.
 
-### 409. Создать unit tests RBAC
+### 409. Create unit tests for RBAC
 
-Проверить roles, hierarchy и scope inheritance.
+Check roles, hierarchy, and scope inheritance.
 
-### 410. Создать unit tests ABAC
+### 410. Create unit tests for ABAC
 
-Проверить condition operators и deny precedence.
+Check condition operators and deny precedence.
 
-### 411. Создать unit tests rate limiting
+### 411. Create unit tests for rate limiting
 
-Проверить windows, bursts и expiration.
+Check windows, bursts, and expiration.
 
-### 412. Создать unit tests audit sanitization
+### 412. Create unit tests for audit sanitization
 
-Проверить удаление sensitive fields.
+Check removal of sensitive fields.
 
-### 413. Создать architecture tests
+### 413. Create architecture tests
 
-Проверять layers, modules и запрещённые dependencies.
+Check layers, modules, and prohibited dependencies.
 
-### 414. Настроить Testcontainers PostgreSQL
+### 414. Configure Testcontainers PostgreSQL
 
-Запускать integration tests на реальной database version.
+Run integration tests against a real database version.
 
-### 415. Настроить Testcontainers Redis
+### 415. Configure Testcontainers Redis
 
-Проверять sessions, rate limits и cache invalidation.
+Check sessions, rate limits, and cache invalidation.
 
-### 416. Настроить Testcontainers RabbitMQ
+### 416. Configure Testcontainers RabbitMQ
 
-Проверять outbox, email jobs и security events.
+Check outbox, email jobs, and security events.
 
-### 417. Создать repository integration tests
+### 417. Create repository integration tests
 
-Проверить constraints, locks и transaction behavior.
+Check constraints, locks, and transaction behavior.
 
-### 418. Создать session integration tests
+### 418. Create session integration tests
 
-Проверить cookie, Redis cache и PostgreSQL source of truth.
+Check cookies, Redis cache, and PostgreSQL source of truth.
 
-### 419. Создать token integration tests
+### 419. Create token integration tests
 
-Проверить signing, JWKS, rotation и introspection.
+Check signing, JWKS, rotation, and introspection.
 
-### 420. Создать authorization integration tests
+### 420. Create authorization integration tests
 
-Проверить guards, use cases, query filtering и cache invalidation.
+Check guards, use cases, query filtering, and cache invalidation.
 
 ## 22. Security testing
 
-### 421. Создать authentication end-to-end tests
+### 421. Create authentication end-to-end tests
 
-Проверить registration, verification, login, refresh и logout.
+Check registration, verification, login, refresh, and logout.
 
-### 422. Создать password reset end-to-end tests
+### 422. Create password reset end-to-end tests
 
-Проверить request, completion, revocation и notification.
+Check request, completion, revocation, and notification.
 
-### 423. Создать MFA end-to-end tests
+### 423. Create MFA end-to-end tests
 
-Проверить enrollment, challenge, recovery и step-up.
+Check enrollment, challenge, recovery, and step-up.
 
-### 424. Создать API key end-to-end tests
+### 424. Create API key end-to-end tests
 
-Проверить creation, use, rotation и revocation.
+Check creation, use, rotation, and revocation.
 
-### 425. Создать OAuth Authorization Code tests
+### 425. Create OAuth Authorization Code tests
 
-Проверить redirect URI, state, PKCE и code replay.
+Check redirect URI, state, PKCE, and code replay.
 
-### 426. Создать Client Credentials tests
+### 426. Create Client Credentials tests
 
-Проверить client authentication, audience и scopes.
+Check client authentication, audience, and scopes.
 
-### 427. Создать OIDC tests
+### 427. Create OIDC tests
 
-Проверить nonce, ID Token, UserInfo и discovery metadata.
+Check nonce, ID Token, UserInfo, and discovery metadata.
 
-### 428. Тестировать user enumeration
+### 428. Test user enumeration
 
-Проверить login, registration, reset и verification responses.
+Check login, registration, reset, and verification responses.
 
-### 429. Тестировать session fixation
+### 429. Test session fixation
 
-Проверить rotation identifiers после authentication.
+Check identifier rotation after authentication.
 
-### 430. Тестировать CSRF
+### 430. Test CSRF
 
-Проверить cookie-authenticated mutation endpoints.
+Check cookie-authenticated mutation endpoints.
 
-### 431. Тестировать token replay
+### 431. Test token replay
 
-Повторно использовать authorization codes, reset tokens и rotated refresh tokens.
+Reuse authorization codes, reset tokens, and rotated refresh tokens.
 
-### 432. Тестировать JWT attacks
+### 432. Test JWT attacks
 
-Проверить algorithm confusion, invalid kid, wrong audience и expired tokens.
+Check algorithm confusion, invalid kid, wrong audience, and expired tokens.
 
-### 433. Тестировать IDOR
+### 433. Test IDOR
 
-Использовать identifiers чужих sessions, keys, roles и clients.
+Use identifiers of other users' sessions, keys, roles, and clients.
 
-### 434. Тестировать privilege escalation
+### 434. Test privilege escalation
 
-Пытаться назначить себе role или scope без permission.
+Attempt to assign a role or scope to oneself without permission.
 
-### 435. Тестировать policy bypass
+### 435. Test policy bypass
 
-Проверить missing attributes, malformed conditions и cache staleness.
+Check missing attributes, malformed conditions, and cache staleness.
 
-### 436. Тестировать brute force controls
+### 436. Test brute force controls
 
-Проверить distributed login attempts и rate-limit evasion.
+Check distributed login attempts and rate-limit evasion.
 
-### 437. Тестировать race conditions
+### 437. Test race conditions
 
-Параллельно использовать refresh token, reset token и authorization code.
+Use a refresh token, reset token, and authorization code concurrently.
 
-### 438. Тестировать timing differences
+### 438. Test timing differences
 
-Сравнить время ответов для существующих и неизвестных identities.
+Compare response times for existing and unknown identities.
 
-### 439. Провести dependency security scan
+### 439. Perform a dependency security scan
 
-Проверить libraries, container images и transitive dependencies.
+Check libraries, container images, and transitive dependencies.
 
-### 440. Создать security regression suite
+### 440. Create a security regression suite
 
-Запускать критичные authentication и authorization tests в CI.
+Run critical authentication and authorization tests in CI.
 
-## 23. Performance и reliability
+## 23. Performance and reliability
 
-### 441. Определить performance targets
+### 441. Define performance targets
 
-Зафиксировать p95 login, session validation, token issuance и authorization latency.
+Record p95 login, session validation, token issuance, and authorization latency.
 
-### 442. Создать login load test
+### 442. Create a login load test
 
-Измерить hashing cost, database load и rate limiting.
+Measure hashing cost, database load, and rate limiting.
 
-### 443. Создать session validation load test
+### 443. Create a session validation load test
 
-Проверить PostgreSQL и Redis-backed models.
+Check PostgreSQL and Redis-backed models.
 
-### 444. Создать token issuance load test
+### 444. Create a token issuance load test
 
-Измерить signing throughput и key access overhead.
+Measure signing throughput and key access overhead.
 
-### 445. Создать JWKS load test
+### 445. Create a JWKS load test
 
-Проверить caching и high-volume resource-server access.
+Check caching and high-volume resource-server access.
 
-### 446. Создать authorization load test
+### 446. Create an authorization load test
 
-Измерить RBAC, ABAC и combined policy evaluation.
+Measure RBAC, ABAC, and combined policy evaluation.
 
-### 447. Создать API key authentication load test
+### 447. Create an API key authentication load test
 
-Измерить prefix lookup и hash verification.
+Measure prefix lookup and hash verification.
 
-### 448. Создать OAuth token endpoint load test
+### 448. Create an OAuth token endpoint load test
 
-Проверить code exchange и refresh rotation concurrency.
+Check code exchange and refresh rotation concurrency.
 
-### 449. Оптимизировать database indexes
+### 449. Optimize database indexes
 
-Использовать `EXPLAIN ANALYZE` для critical queries.
+Use `EXPLAIN ANALYZE` for critical queries.
 
-### 450. Оптимизировать password hashing concurrency
+### 450. Optimize password hashing concurrency
 
-Не блокировать event loop и не исчерпывать worker pool.
+Do not block the event loop or exhaust the worker pool.
 
-### 451. Вынести CPU-bound crypto
+### 451. Move CPU-bound crypto out
 
-Использовать worker threads или controlled native implementation при необходимости.
+Use worker threads or a controlled native implementation when necessary.
 
-### 452. Реализовать authorization cache
+### 452. Implement authorization cache
 
-Кэшировать roles и policies с безопасной invalidation.
+Cache roles and policies with safe invalidation.
 
-### 453. Реализовать JWKS cache
+### 453. Implement JWKS cache
 
-Кэшировать public keys в resource services.
+Cache public keys in resource services.
 
-### 454. Реализовать cache stampede protection
+### 454. Implement cache stampede protection
 
-Предотвращать массовую одновременную загрузку permissions и keys.
+Prevent massive simultaneous loading of permissions and keys.
 
-### 455. Реализовать circuit breaker
+### 455. Implement a circuit breaker
 
-Изолировать email, external IdP и KMS failures.
+Isolate email, external IdP, and KMS failures.
 
-### 456. Реализовать timeout policy
+### 456. Implement a timeout policy
 
-Ограничить database, Redis, provider и KMS calls.
+Limit database, Redis, provider, and KMS calls.
 
-### 457. Реализовать graceful degradation
+### 457. Implement graceful degradation
 
-Сохранять local authentication при недоступности необязательных providers.
+Preserve local authentication when optional providers are unavailable.
 
-### 458. Провести soak test
+### 458. Perform a soak test
 
-Обнаружить memory leaks, session growth и connection leaks.
+Detect memory leaks, session growth, and connection leaks.
 
-### 459. Провести dependency outage tests
+### 459. Perform dependency outage tests
 
-Отключать Redis, RabbitMQ, email provider и external IdP.
+Disable Redis, RabbitMQ, email provider, and external IdP.
 
-### 460. Создать capacity model
+### 460. Create a capacity model
 
-Рассчитать instances, database, Redis и cryptographic throughput.
+Calculate instances, database, Redis, and cryptographic throughput.
 
 ## 24. Observability
 
-### 461. Реализовать structured logging
+### 461. Implement structured logging
 
-Добавить service, environment, requestId, traceId, userId и sessionId.
+Add service, environment, requestId, traceId, userId, and sessionId.
 
-### 462. Псевдонимизировать identity data
+### 462. Pseudonymize identity data
 
-Не записывать raw email и tokens в logs.
+Do not write raw email and tokens to logs.
 
-### 463. Реализовать centralized redaction
+### 463. Implement centralized redaction
 
-Удалять passwords, cookies, authorization headers и secrets.
+Remove passwords, cookies, authorization headers, and secrets.
 
-### 464. Реализовать OpenTelemetry tracing
+### 464. Implement OpenTelemetry tracing
 
-Трассировать HTTP, database, Redis, messaging и external providers.
+Trace HTTP, database, Redis, messaging, and external providers.
 
-### 465. Добавить authentication spans
+### 465. Add authentication spans
 
-Измерять lookup, password verification, MFA и session creation.
+Measure lookup, password verification, MFA, and session creation.
 
-### 466. Добавить authorization spans
+### 466. Add authorization spans
 
-Измерять policy evaluation и cache operations.
+Measure policy evaluation and cache operations.
 
-### 467. Добавить token spans
+### 467. Add token spans
 
-Измерять signing, verification, introspection и rotation.
+Measure signing, verification, introspection, and rotation.
 
-### 468. Добавить authentication metrics
+### 468. Add authentication metrics
 
-Собирать successes, failures, lockouts и MFA challenges.
+Collect successes, failures, lockouts, and MFA challenges.
 
-### 469. Добавить session metrics
+### 469. Add session metrics
 
-Собирать active, created, revoked и expired sessions.
+Collect active, created, revoked, and expired sessions.
 
-### 470. Добавить token metrics
+### 470. Add token metrics
 
-Собирать issued, refreshed, reused и revoked tokens.
+Collect issued, refreshed, reused, and revoked tokens.
 
-### 471. Добавить API key metrics
+### 471. Add API key metrics
 
-Собирать authentications, failures, expirations и revocations.
+Collect authentications, failures, expirations, and revocations.
 
-### 472. Добавить OAuth metrics
+### 472. Add OAuth metrics
 
-Собирать authorization, token grants, failures и consent events.
+Collect authorization, token grants, failures, and consent events.
 
-### 473. Добавить authorization metrics
+### 473. Add authorization metrics
 
-Собирать allow, deny, evaluation duration и cache hit rate.
+Collect allow, deny, evaluation duration, and cache hit rate.
 
-### 474. Добавить rate-limit metrics
+### 474. Add rate-limit metrics
 
-Собирать blocked requests по endpoint и credential type.
+Collect blocked requests by endpoint and credential type.
 
-### 475. Добавить audit metrics
+### 475. Add audit metrics
 
-Собирать ingestion rate, export failures и integrity errors.
+Collect ingestion rate, export failures, and integrity errors.
 
-### 476. Создать Grafana authentication dashboard
+### 476. Create a Grafana authentication dashboard
 
-Показать login rates, failures, MFA и sessions.
+Show login rates, failures, MFA, and sessions.
 
-### 477. Создать Grafana authorization dashboard
+### 477. Create a Grafana authorization dashboard
 
-Показать decisions, latency и cache performance.
+Show decisions, latency, and cache performance.
 
-### 478. Создать Grafana security dashboard
+### 478. Create a Grafana security dashboard
 
-Показать brute force, token reuse и privilege escalation events.
+Show brute force, token reuse, and privilege escalation events.
 
-### 479. Настроить alerts
+### 479. Configure alerts
 
-Создать alerts на login failure spikes, token reuse и signing-key failures.
+Create alerts for login failure spikes, token reuse, and signing-key failures.
 
-### 480. Определить Authgate SLI и SLO
+### 480. Define Authgate SLI and SLO
 
-Зафиксировать availability, authentication latency и authorization correctness indicators.
+Record availability, authentication latency, and authorization correctness indicators.
 
-## 25. Deployment и эксплуатация
+## 25. Deployment and operations
 
-### 481. Создать production Dockerfiles
+### 481. Create production Dockerfiles
 
-Использовать multi-stage build, non-root user и minimal runtime image.
+Use a multi-stage build, non-root user, and minimal runtime image.
 
-### 482. Разделить API и worker deployments
+### 482. Separate API and worker deployments
 
-Масштабировать synchronous и asynchronous workloads независимо.
+Scale synchronous and asynchronous workloads independently.
 
-### 483. Настроить resource limits
+### 483. Configure resource limits
 
-Ограничить CPU и memory для API и workers.
+Limit CPU and memory for API and workers.
 
-### 484. Настроить rolling deployments
+### 484. Configure rolling deployments
 
-Сохранять sessions и token validation во время обновления instances.
+Preserve sessions and token validation during instance updates.
 
-### 485. Реализовать graceful draining
+### 485. Implement graceful draining
 
-Завершать active authentication requests перед shutdown.
+Complete active authentication requests before shutdown.
 
-### 486. Создать migration policy
+### 486. Create a migration policy
 
-Использовать expand-migrate-contract для backward-compatible schema changes.
+Use expand-migrate-contract for backward-compatible schema changes.
 
-### 487. Реализовать zero-downtime key rotation
+### 487. Implement zero-downtime key rotation
 
-Обновлять signing keys без отказа verification.
+Update signing keys without verification failure.
 
-### 488. Реализовать zero-downtime cookie changes
+### 488. Implement zero-downtime cookie changes
 
-Поддерживать переход между cookie names и secrets.
+Support transition between cookie names and secrets.
 
-### 489. Настроить autoscaling
+### 489. Configure autoscaling
 
-Масштабировать API по latency, CPU и request rate.
+Scale the API by latency, CPU, and request rate.
 
-### 490. Ограничить autoscaling
+### 490. Limit autoscaling
 
-Не перегружать PostgreSQL, Redis и KMS.
+Do not overload PostgreSQL, Redis, and KMS.
 
-### 491. Настроить PostgreSQL backup
+### 491. Configure PostgreSQL backup
 
-Обеспечить point-in-time recovery.
+Provide point-in-time recovery.
 
-### 492. Настроить Redis persistence policy
+### 492. Configure Redis persistence policy
 
-Определить recovery requirements для sessions и rate limits.
+Define recovery requirements for sessions and rate limits.
 
-### 493. Создать disaster recovery plan
+### 493. Create a disaster recovery plan
 
-Описать восстановление database, keys, sessions и OAuth clients.
+Describe recovery of database, keys, sessions, and OAuth clients.
 
-### 494. Провести disaster recovery test
+### 494. Perform a disaster recovery test
 
-Восстановить environment и проверить token verification.
+Restore the environment and check token verification.
 
-### 495. Создать runbook login failure spike
+### 495. Create a runbook for a login failure spike
 
-Описать диагностику credentials, dependencies и attack traffic.
+Describe diagnostics for credentials, dependencies, and attack traffic.
 
-### 496. Создать runbook token reuse incident
+### 496. Create a runbook for a token reuse incident
 
-Описать revocation, user notification и forensic analysis.
+Describe revocation, user notification, and forensic analysis.
 
-### 497. Создать runbook signing-key compromise
+### 497. Create a runbook for signing-key compromise
 
-Описать emergency rotation и mass token invalidation.
+Describe emergency rotation and mass token invalidation.
 
-### 498. Создать runbook external IdP outage
+### 498. Create a runbook for external IdP outage
 
-Описать fallback и communication procedures.
+Describe fallback and communication procedures.
 
-### 499. Создать runbook Redis outage
+### 499. Create a runbook for Redis outage
 
-Описать session validation и rate-limit fallback.
+Describe session validation and rate-limit fallback.
 
-### 500. Создать runbook authorization incident
+### 500. Create a runbook for an authorization incident
 
-Описать containment, policy rollback и audit investigation.
+Describe containment, policy rollback, and audit investigation.
 
-## 26. Документация и production-style сценарии
+## 26. Documentation and production-style scenarios
 
-### 501. Создать README репозитория
+### 501. Create the repository README
 
-Описать назначение Authgate, architecture, запуск и основные flows.
+Describe Authgate's purpose, architecture, startup, and main flows.
 
-### 502. Создать C4 System Context diagram
+### 502. Create a C4 System Context diagram
 
-Показать users, clients, resource services и external identity providers.
+Show users, clients, resource services, and external identity providers.
 
-### 503. Создать C4 Container diagram
+### 503. Create a C4 Container diagram
 
-Показать Auth API, workers, PostgreSQL, Redis, broker и KMS.
+Show Auth API, workers, PostgreSQL, Redis, broker, and KMS.
 
-### 504. Создать component diagrams
+### 504. Create component diagrams
 
-Показать Identity, Sessions, Tokens, OAuth, Authorization и Audit modules.
+Show Identity, Sessions, Tokens, OAuth, Authorization, and Audit modules.
 
-### 505. Создать sequence diagram password login
+### 505. Create a password login sequence diagram
 
-Показать credential verification, MFA, session и token issuance.
+Show credential verification, MFA, session, and token issuance.
 
-### 506. Создать sequence diagram refresh rotation
+### 506. Create a refresh rotation sequence diagram
 
-Показать token family, reuse detection и revocation.
+Show token family, reuse detection, and revocation.
 
-### 507. Создать sequence diagram OAuth flow
+### 507. Create an OAuth flow sequence diagram
 
-Показать authorization, consent, PKCE и token exchange.
+Show authorization, consent, PKCE, and token exchange.
 
-### 508. Создать sequence diagram API key authentication
+### 508. Create an API key authentication sequence diagram
 
-Показать prefix lookup, hash verification, scopes и audit.
+Show prefix lookup, hash verification, scopes, and audit.
 
-### 509. Создать sequence diagram authorization
+### 509. Create an authorization sequence diagram
 
-Показать context building, RBAC, ABAC и decision enforcement.
+Show context building, RBAC, ABAC, and decision enforcement.
 
-### 510. Документировать authentication state machines
+### 510. Document authentication state machines
 
-Описать User, Session, RefreshToken и MFA states.
+Describe User, Session, RefreshToken, and MFA states.
 
-### 511. Документировать authorization model
+### 511. Document the authorization model
 
-Описать roles, permissions, scopes, policies и decision precedence.
+Describe roles, permissions, scopes, policies, and decision precedence.
 
-### 512. Документировать token model
+### 512. Document the token model
 
-Описать claims, lifetime, rotation, introspection и revocation.
+Describe claims, lifetime, rotation, introspection, and revocation.
 
-### 513. Создать ADR session strategy
+### 513. Create an ADR for session strategy
 
-Обосновать server-side sessions, JWT или hybrid model.
+Justify server-side sessions, JWT, or a hybrid model.
 
-### 514. Создать ADR password hashing
+### 514. Create an ADR for password hashing
 
-Зафиксировать algorithm, parameters и upgrade strategy.
+Record the algorithm, parameters, and upgrade strategy.
 
-### 515. Создать ADR authorization architecture
+### 515. Create an ADR for authorization architecture
 
-Обосновать RBAC, ABAC и policy engine boundaries.
+Justify RBAC, ABAC, and policy engine boundaries.
 
-### 516. Реализовать production-style browser authentication
+### 516. Implement production-style browser authentication
 
-Показать registration, verification, login, MFA, cookie session и logout.
+Show registration, verification, login, MFA, cookie session, and logout.
 
-### 517. Реализовать production-style token flow
+### 517. Implement a production-style token flow
 
-Показать access token, refresh rotation, reuse attack и family revocation.
+Show access token, refresh rotation, reuse attack, and family revocation.
 
-### 518. Реализовать production-style machine access
+### 518. Implement production-style machine access
 
-Показать service account, API key, OAuth Client Credentials и scoped authorization.
+Show service account, API key, OAuth Client Credentials, and scoped authorization.
 
-### 519. Реализовать production-style security incident
+### 519. Implement a production-style security incident
 
-Сымитировать credential compromise, revoke credentials и восстановить access.
+Simulate credential compromise, revoke credentials, and restore access.
 
-### 520. Подготовить production readiness checklist
+### 520. Prepare a production readiness checklist
 
-Зафиксировать обязательные проверки authentication, authorization, cryptography, observability, recovery и operations.
+Record mandatory checks for authentication, authorization, cryptography, observability, recovery, and operations.
